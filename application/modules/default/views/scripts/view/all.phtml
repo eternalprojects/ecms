@@ -1,0 +1,22 @@
+<?php foreach($this->news as $story){ ?>
+<table style="border: outset 1px white" width="95%">
+	<tr>
+		<td colspan=3 style="border: outset 1px white" align="center"><a href="/view/article/sid/<?php echo $story['id']; ?>"><?php echo $story['title']; ?></a></td>
+	</tr>
+	<tr>
+		<td style="border: outset 1px white">Author: <?php echo $story['author']; ?></td>
+		<td style="border: outset 1px white">Created: <?php echo $story['created']; ?></td>
+		<td style="border: outset 1px white">Views: <?php echo $story['views']; ?></td>
+	</tr>
+	<tr>
+		<td style="border: outset 1px white" colspan="3"><?php echo $story['summary']; ?><br><br>&nbsp;&nbsp;&nbsp;<a href="/view/article/sid/<?php echo $story['id']; ?>">Read More</a></td>
+	</tr>
+</table>
+<br />
+<?php } ?>
+
+<div align="center">
+<?php
+echo $this->paginationControl($this->paginator, 'Elastic', 'pagination.phtml');
+?>
+</div>

@@ -1,0 +1,10 @@
+<div align="center"><?php
+echo $this->bodyCopy;
+?>
+<br><br>
+<?php if(!$this->sent) :?>
+<form action="/members/password/forgot" method=POST>
+Email Address: <input type="text" name="email"><br>
+<input type="submit" value="Request Password">
+</form>
+<?php endif;?>
