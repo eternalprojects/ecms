@@ -14,6 +14,7 @@ class AddController extends Zend_Controller_Action
 	public function init(){
 		$this->view->user = Zend_Auth::getInstance()->getIdentity();
 		$this->view->siteName = Zend_Registry::get('config')->site->name;
+		$this->view->menu = $this->_helper->generateMenu(Zend_Auth::getInstance()->getIdentity());
 		$this->view->slogan = Zend_Registry::get('config')->site->slogan;
 	}
     public function indexAction ()
@@ -33,7 +34,7 @@ class AddController extends Zend_Controller_Action
                 $date = date('Y/m/d H:i:s');
                 $row->created = $date;
                 $row->modified = $date;
-                $row->author = 'Jesse Lesperance';
+                $row->author = ($this->view->user)?$this->view->user->uname : 'Anonymous';
                 $row->views = 0;
                 $row->content = $filter->filter(nl2br($form->getValue('articleContent')));
                 $row->save();
