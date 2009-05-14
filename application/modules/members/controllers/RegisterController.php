@@ -31,16 +31,16 @@ class Members_RegisterController extends Zend_Controller_Action
             if($form->isValid($formData)){
             	$members = new Members();
             	$select1 = $members->select()->where('uname = ?', $form->getValue('username'));
-                $select2 - $members->select()->where('email = ?', $form->getValue('email'));
+                $select2 = $members->select()->where('email = ?', $form->getValue('email'));
                 if($formData['password'] !== $formData['password2']){
                     $form->getElement('password2')->addError('Passwords do not match');
                     $form->populate($formData);
                     $this->view->form = $form;
-                }elseif($row = $members->fetchRow($selct1)){
+                }elseif($row = $members->fetchRow($select1)){
                   	$form->getElement('username')->addError('Username is already taken');
                   	$form->populate($formData);
                     $this->view->form = $form;
-                }elseif($row = $members->fetchRow($selct2)){
+                }elseif($row = $members->fetchRow($select2)){
                   	$form->getElement('email')->addError('Email is already taken');
                   	$form->populate($formData);
                     $this->view->form = $form;

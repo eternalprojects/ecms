@@ -58,14 +58,13 @@ class Initializer extends Zend_Controller_Plugin_Abstract
         if (null === $root) {
             $root = realpath(dirname(__FILE__) . '/../');
         }
-        
+        Zend_Registry::set('base_dir', $root);
         $this->_root = $root;
 
         $this->initPhpConfig();
         
         $this->_front = Zend_Controller_Front::getInstance();
-        $moduleName = $this->_front->getModuleDirectory()?$this->_front->getModuleDirectory():'default';
-        set_include_path($this->_root .'/application/modules/' . $moduleName . '/models' . PATH_SEPARATOR . get_include_path());
+        
         // set the test environment parameters
         if ($env == 'development') {
 			// Enable all errors so we'll know when something goes wrong. 
@@ -194,9 +193,10 @@ class Initializer extends Zend_Controller_Plugin_Abstract
      */
     public function initControllers()
     {
-    	$this->_front->addControllerDirectory($this->_root .'/application/modules/default/controllers','default');
-    	$this->_front->addControllerDirectory($this->_root . '/application/modules/members/controllers','members');
-    	
+    	$this->_front->addModuleDirectory($this->_root .'/application/modules/');
+    	//$this->_front->addControllerDirectory($this->_root .'/application/modules/default/controllers','default');
+    	//$this->_front->addControllerDirectory($this->_root . '/application/modules/members/controllers','members');
+    	$this->_front->registerPlugin(new eCMS_Controller_Plugin_ModelLoader());
     }
 }
 ?>
