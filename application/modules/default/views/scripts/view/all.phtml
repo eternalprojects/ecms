@@ -1,15 +1,15 @@
 <?php foreach($this->news as $story){ ?>
-<table style="border: outset 1px white" width="95%">
+<table style="border: solid 1px black" width="95%">
 	<tr>
-		<td colspan=3 style="border: outset 1px white" align="center"><a href="/view/article/sid/<?php echo $story['id']; ?>"><?php echo $story['title']; ?></a></td>
+		<td colspan=3 style="border: solid 1px black" align="center"><a href="/view/article/sid/<?php echo $story['id']; ?>"><?php echo $story['title']; ?></a></td>
 	</tr>
 	<tr>
-		<td style="border: outset 1px white">Author: <?php echo $story['author']; ?></td>
-		<td style="border: outset 1px white">Created: <?php echo $story['created']; ?></td>
-		<td style="border: outset 1px white">Views: <?php echo $story['views']; ?></td>
+		<td style="border: solid 1px black">Author: <?php echo $story['author']; ?></td>
+		<td style="border: solid 1px black">Created: <?php echo $story['created']; ?></td>
+		<td style="border: solid 1px black">Views: <?php echo $story['views']; ?></td>
 	</tr>
 	<tr>
-		<td style="border: outset 1px white" colspan="3"><?php echo $story['summary']; ?><br><br>&nbsp;&nbsp;&nbsp;<a href="/view/article/sid/<?php echo $story['id']; ?>">Read More</a></td>
+		<td style="border: solid 1px black" colspan="3"><?php echo $story['summary']; ?><br><br>&nbsp;&nbsp;&nbsp;<a href="/view/article/sid/<?php echo $story['id']; ?>">Read More</a></td>
 	</tr>
 </table>
 <br />
