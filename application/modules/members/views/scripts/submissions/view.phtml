@@ -1,0 +1,14 @@
+<?php foreach($this->news as $story){ ?>
+<table style="border: solid 1px black" width="95%">
+	<tr>
+		<td style="border: solid 1px black" align="left" width="85%"><a href="/view/article/sid/<?php echo $story['id']; ?>"><?php echo $story['title']; ?></a></td><td style="border: solid 1px black" align="center"><a href="/members/submissions/edit/sid/<?php echo $story['id']; ?>">Edit</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="/members/submissions/delete/sid/<?php echo $story['id']; ?>">Delete</a></td>
+	</tr>
+</table>
+<br />
+<?php } ?>
+
+<div align="center">
+<?php
+echo $this->paginationControl($this->paginator, 'Elastic', 'pagination.phtml');
+?>
+</div>
