@@ -18,7 +18,7 @@ $loader->setFallbackAutoloader(true);
 $frontController = Zend_Controller_Front::getInstance(); 
 
 // Change to 'production' parameter under production environemtn
-$frontController->registerPlugin(new Initializer('development'));    
+$frontController->registerPlugin(new Initializer('production'));    
 
 // Dispatch the request using the front controller. 
 $frontController->dispatch(); 
