@@ -142,7 +142,7 @@ class Initializer extends Zend_Controller_Plugin_Abstract
     public function initHelpers()
     {
     	// register the default action helpers
-    	Zend_Controller_Action_HelperBroker::addPath('../application/default/helpers', 'Zend_Controller_Action_Helper');
+    	Zend_Controller_Action_HelperBroker::addPath('../application/helpers', 'Global_Helper');
     }
     
     /**
@@ -163,6 +163,7 @@ class Initializer extends Zend_Controller_Plugin_Abstract
 		$viewRenderer = new Zend_Controller_Action_Helper_ViewRenderer();
 		$viewRenderer->setView($view);
 		Zend_Controller_Action_HelperBroker::addHelper($viewRenderer);
+		
     	
     }
     

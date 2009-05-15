@@ -5,7 +5,7 @@
  * @author  
  * @version 
  */
-set_include_path('.' . PATH_SEPARATOR . '../library' . PATH_SEPARATOR . '../application/config' . PATH_SEPARATOR . '../application/modules/members/models/' . PATH_SEPARATOR . '../application/forms/' . PATH_SEPARATOR . get_include_path());
+set_include_path('.' . PATH_SEPARATOR . '../library' . PATH_SEPARATOR . '../application/config' . PATH_SEPARATOR . '../application/forms/' . PATH_SEPARATOR . get_include_path());
 date_default_timezone_set('America/Los_Angeles');
 require_once 'Zend/Loader/Autoloader.php';
 require_once 'Initializer.php';

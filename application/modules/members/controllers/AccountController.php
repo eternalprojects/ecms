@@ -16,6 +16,7 @@ class Members_AccountController extends Zend_Controller_Action {
 	
 	public function init(){
 		$this->view->siteName = Zend_Registry::get('config')->site->name;
+		$this->view->menu = $this->_helper->generateMenu(Zend_Auth::getInstance()->getIdentity());
 		$this->view->slogan = Zend_Registry::get('config')->site->slogan;
 	}
 	public function indexAction() {

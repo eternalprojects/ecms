@@ -15,6 +15,7 @@ class ViewController extends Zend_Controller_Action
 		$this->view->user = Zend_Auth::getInstance()->getIdentity();
 		$this->view->siteName = Zend_Registry::get('config')->site->name;
 		$this->view->slogan = Zend_Registry::get('config')->site->slogan;
+		$this->view->menu = $this->_helper->generateMenu(Zend_Auth::getInstance()->getIdentity());
 	}
     public function indexAction ()
     {
