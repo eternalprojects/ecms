@@ -12,8 +12,7 @@ class InstallController extends eCMS_Controller_Action {
 	 */
 	
 	public function init(){
-		$this->view->siteName = Zend_Registry::get('config')->site->name;
-		$this->view->slogan = Zend_Registry::get('config')->site->slogan;
+		parent::init();
 	}
 	public function indexAction() {
 		$this->view->title = "Installation";
