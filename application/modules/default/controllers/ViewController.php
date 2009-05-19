@@ -5,17 +5,14 @@
  * @author
  * @version 
  */
-require_once 'Zend/Controller/Action.php';
-class ViewController extends Zend_Controller_Action
+require_once 'eCMS/Controller/Action.php';
+class ViewController extends eCMS_Controller_Action
 {
     /**
      * The default action - show the home page
      */
 	public function init(){
-		$this->view->user = Zend_Auth::getInstance()->getIdentity();
-		$this->view->siteName = Zend_Registry::get('config')->site->name;
-		$this->view->slogan = Zend_Registry::get('config')->site->slogan;
-		$this->view->menu = $this->_helper->generateMenu(Zend_Auth::getInstance()->getIdentity());
+		parent::init();
 	}
     public function indexAction ()
     {

@@ -7,17 +7,14 @@
  * @version 
  */
 
-require_once 'Zend/Controller/Action.php';
+require_once 'eCMS/Controller/Action.php';
 
-class Members_EmailController extends Zend_Controller_Action {
+class Members_EmailController extends eCMS_Controller_Action {
 	/**
 	 * The default action - show the home page
 	 */
 	public function init(){
-		$this->view->user = Zend_Auth::getInstance()->getIdentity();
-		$this->view->siteName = Zend_Registry::get('config')->site->name;
-		$this->view->menu = $this->_helper->generateMenu(Zend_Auth::getInstance()->getIdentity());
-		$this->view->slogan = Zend_Registry::get('config')->site->slogan;
+		parent::init();
 	}
 	
 	public function indexAction() {

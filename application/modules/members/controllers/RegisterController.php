@@ -6,17 +6,15 @@ date_default_timezone_set('America/Los_Angeles');
  * @author
  * @version 
  */
-require_once 'Zend/Controller/Action.php';
-class Members_RegisterController extends Zend_Controller_Action
+require_once 'eCMS/Controller/Action.php';
+class Members_RegisterController extends eCMS_Controller_Action
 {
     /**
      * The default action - show the home page
      */
 	
 	public function init(){
-		$this->view->siteName = Zend_Registry::get('config')->site->name;
-		$this->view->menu = $this->_helper->generateMenu(Zend_Auth::getInstance()->getIdentity());
-		$this->view->slogan = Zend_Registry::get('config')->site->slogan;
+		parent::init();
 	}
     public function indexAction ()
     {    

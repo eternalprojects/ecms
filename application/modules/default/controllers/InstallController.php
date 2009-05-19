@@ -5,8 +5,8 @@
  * @author
  * @version 
  */
-require_once 'Zend/Controller/Action.php';
-class InstallController extends Zend_Controller_Action {
+require_once 'eCMS/Controller/Action.php';
+class InstallController extends eCMS_Controller_Action {
 	/**
 	 * The default action - show the home page
 	 */

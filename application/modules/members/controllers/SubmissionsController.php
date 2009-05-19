@@ -7,21 +7,18 @@
  * @version 
  */
 
-require_once 'Zend/Controller/Action.php';
+require_once 'eCMS/Controller/Action.php';
 
-class Members_SubmissionsController extends Zend_Controller_Action {
+class Members_SubmissionsController extends eCMS_Controller_Action {
 	/**
 	 * The default action - show the home page
 	 */
 	
 	public function init(){
-		$this->_user = Zend_Auth::getInstance()->getIdentity();
-		$this->view->user = $this->_user;
-		if(!$this->_user)
+		parent::init();
+		if(!$this->view->user)
 			$this->_redirect('/members/auth/login');
-		$this->view->siteName = Zend_Registry::get('config')->site->name;
-		$this->view->menu = $this->_helper->generateMenu($this->_user);
-		$this->view->slogan = Zend_Registry::get('config')->site->slogan;
+		
 	}
 	public function indexAction() {
 		$this->_redirect('/');
@@ -31,7 +28,7 @@ class Members_SubmissionsController extends Zend_Controller_Action {
 		$db = Zend_Registry::get('db');
 		$this->view->title = "My Submissions";
 		$page = $this->_request->getParam('page', 1);
-        $select = $db->select()->from('news')->where('author = ?',$this->_user->uname)->order('id DESC');
+        $select = $db->select()->from('news')->where('author = ?',$this->view->user->uname)->order('id DESC');
         $pagination = Zend_Paginator::factory($select);
         $pagination->setCurrentPageNumber($page);
         $pagination->setItemCountPerPage(10);
@@ -90,7 +87,7 @@ class Members_SubmissionsController extends Zend_Controller_Action {
 	private function _removeArticle($sid){
 		$news = new News();
 		$row = $news->find($sid);
-		if($this->_user->uname != $row[0]['author'])
+		if($this->view->user->uname != $row[0]['author'])
 			$this->_redirect('/members/submissions/view');
 		$where = $news->getAdapter()->quoteInto('id = ?',$sid);
 		$news->delete($where);	
