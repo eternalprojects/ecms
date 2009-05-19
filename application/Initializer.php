@@ -154,8 +154,9 @@ class Initializer extends Zend_Controller_Plugin_Abstract
     {
 		// Bootstrap layouts
 		Zend_Layout::startMvc(array(
-		    'layoutPath' => $this->_root .  '/application/layouts',
-		    'layout' => 'main'
+		    'layoutPath' => $this->_root .  '/application/modules/default/layouts',
+		    'layout' => 'main',
+			'pluginClass'=>'eCMS_Layout_ModuleLayoutDirectory'
 		));
 		$view = new Zend_View();
 		$view->addHelperPath('ZendX/JQuery/View/Helper/', 'ZendX_JQuery_View_Helper');
