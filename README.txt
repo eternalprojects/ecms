@@ -21,7 +21,7 @@ The current version of EternalCMS is v0.4.2. This release has the following feat
     * Most Popular(Most Viewed) News Listing
     * All News Listing
     * Installation Script
-    * Customizable Bad Word Filter
+    * cC Bad Word Filter
     * User Management
           o Registration
           o Login/Logout
