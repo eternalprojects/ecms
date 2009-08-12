@@ -73,7 +73,7 @@ class InstallController extends eCMS_Controller_Action {
 			  `uname` varchar(25) NOT NULL,
 			  `pword` varchar(255) NOT NULL,
 			  `email` varchar(150) NOT NULL,
-			  `active` set('0','1') NOT NULL,
+			  `active` set('0','1') default '0' NOT NULL,
 			  `joined` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
 			  PRIMARY KEY (`id`)
 			) ENGINE=MyISAM  DEFAULT CHARSET=latin1";
