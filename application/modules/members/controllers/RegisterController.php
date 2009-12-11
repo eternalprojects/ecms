@@ -21,14 +21,14 @@ class Members_RegisterController extends eCMS_Controller_Action
         
         $this->view->title = "User Registration";
         $this->view->bodyCopy = "<p>Fill out the following form to register for a user account</p><p>The passwords must be a minimum of 8 characters and must include at least 1 capital letter and 1 number.</p><p>* - indicates a required field</p>";
-        $config = new Zend_Config_Ini('members.ini','registration');
-        $form = new Zend_Form($config->register->user);
+        $form = new Members_Form_Register();
         $form->getElement('password')->getValidator('Regex')->setMessage('Invalid Password.  Passwords must contain at least one number and one capital letter.');
         $form->getElement('password2')->getValidator('Regex')->setMessage('Invalid Password.  Passwords must contain at least one number and one capital letter.');
-        if($this->_request->isPost()){
+
+	if($this->_request->isPost()){
             $formData = $this->_request->getParams();
             if($form->isValid($formData)){
-            	$members = new Members();
+            	$members = new Members_Model_Members();
             	$select1 = $members->select()->where('uname = ?', $form->getValue('username'));
                 $select2 = $members->select()->where('email = ?', $form->getValue('email'));
                 if($formData['password'] !== $formData['password2']){
@@ -46,24 +46,24 @@ class Members_RegisterController extends eCMS_Controller_Action
                 }else{
                     $dbPassword = md5($form->getValue('password'));
                     $row = $members->createRow();
-                    $row->fname = $form->getValue('fname');
-                    $row->lname = $form->getValue('lname');
+                    $row->fname = $form->getValue('firstName');
+                    $row->lname = $form->getValue('lastName');
                     $row->email = $form->getValue('email');
                     $row->uname = $form->getValue('username');
                     $row->pword = $dbPassword;
                     $id = $row->save();
                     
-                    $config = Zend_Registry::get('config');
+                    $settings = Zend_Registry::get('settings');
                     
                     try{
 			$mail = new Zend_Mail();
-					$mail->setBodyText('Thank you for registering at '.$config->site->name.'. 
+					$mail->setBodyText('Thank you for registering at '.$settings->site->name.'. 
 					
 					In order to complete you registration you just need to activate your account.  You can either click on or copy and paste the following URL into your browser.
 					
 					http://'.$_SERVER['HTTP_HOST'].'/members/account/activate/mid/'.$id.'/pid/'.$dbPassword);
-					$mail->setBodyHtml('<p>Thank you for registering with '.$config->site->name.'.<br><br>In order to complete your registration you need to activate your account.  <a href="http://'.$_SERVER['HTTP_HOST'].'/members/account/activate/mid/'.$id.'/pid/'.$dbPassword.'">Activate Now</a>');
-					$mail->setFrom('no-reply@'.$_SERVER['HTTP_HOST'], $config->site->name);
+					$mail->setBodyHtml('<p>Thank you for registering with '.$settings->site->name.'.<br><br>In order to complete your registration you need to activate your account.  <a href="http://'.$_SERVER['HTTP_HOST'].'/members/account/activate/mid/'.$id.'/pid/'.$dbPassword.'">Activate Now</a>');
+					$mail->setFrom('no-reply@'.$_SERVER['HTTP_HOST'], $settings->site->name);
 					$mail->addTo($form->getValue('email'), $form->getValue('fname').' '.$form->getValue('lname'));
 					$mail->setSubject('Thank you for Registering');
 					$mail->send();

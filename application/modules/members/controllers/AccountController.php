@@ -25,7 +25,7 @@ class Members_AccountController extends eCMS_Controller_Action {
 	public function activateAction(){
 		$params = $this->_request->getParams();
 		if(isset($params['mid']) && isset($params['pid'])){
-			$members = new Members();
+			$members = new Members_Model_Members();
 			$select = $members->select();
 			$select->where('id=?',$params['mid']);
 			$select->where('pword=?',$params['pid']);

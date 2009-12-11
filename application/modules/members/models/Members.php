@@ -6,7 +6,7 @@
  * @version 
  */
 require_once 'Zend/Db/Table/Abstract.php';
-class Members extends Zend_Db_Table_Abstract
+class Members_Model_Members extends Zend_Db_Table_Abstract
 {
     /**
      * The default table name 

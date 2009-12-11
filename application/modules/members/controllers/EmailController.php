@@ -35,7 +35,7 @@ class Members_EmailController extends eCMS_Controller_Action {
 				$this->render();
 				
 			}else{
-				$members = new Members();
+				$members = new Members_Model_Members();
 				$data = array('email'=>$email);
 				$where = $members->getAdapter()->quoteInto('uname = ?',$user->uname);
 				$members->update($data, $where);

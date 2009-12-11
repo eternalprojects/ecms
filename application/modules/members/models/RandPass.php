@@ -1,7 +1,7 @@
 <?php
 
 
-class RandPass{
+class Members_Model_RandPass{
 	final public static function generatePass($length = 8){
 		$password = '';
 		$validChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_@%&[]";

@@ -25,13 +25,11 @@ class Members_PasswordController extends eCMS_Controller_Action {
 		$user = Zend_Auth::getInstance()->getIdentity();
 		if(!$user)
 			$this->_redirect('/');
-		$config = new Zend_Config_Ini('members.ini','change-password');
-        $form = new Zend_Form($config->cp->user);
+        $form = new Members_Form_ChangePassword();
         $form->getElement('password')->getValidator('Regex')->setMessage('Invalid Password.  Passwords must contain at least one number and one capital letter.');
-        $form->getElement('password2')->getValidator('Regex')->setMessage('Invalid Password.  Passwords must contain at least one number and one capital letter.');
         if($this->_request->isPost()){
         	$formData = $this->_request->getParams();
-        	$members = new Members();
+        	$members = new Members_Model_Members();
         	if($form->isValid($formData)){
         		
         		if(md5($formData['oldPassword']) != $user->pword){
@@ -63,13 +61,13 @@ class Members_PasswordController extends eCMS_Controller_Action {
 	public function forgotAction(){
 		$this->view->title = "Forgotten Password";
 		$this->view->bodyCopy = "Enter you the email address that is registered with our site and we will email you a new password.";
-		$config = Zend_Registry::get('config');
+		$settings = Zend_Registry::get('settings');
 		if($this->_request->isPost()){
 			$email = $this->_request->getParam('email');
-			$members = new Members();
+			$members = new Members_Model_Members();
 			$select = $members->select()->where('email = ?',$email)->limit(1);
 			if($row = $members->fetchRow($select)){
-				$password = RandPass::generatePass(10);
+				$password = Members_Model_RandPass::generatePass(10);
 				$dbPassword = md5($password);
 				$data = array('pword'=>$dbPassword);
 				$where = $members->getAdapter()->quoteInto('email = ?', $email);
@@ -80,8 +78,8 @@ class Members_PasswordController extends eCMS_Controller_Action {
 				Password: '.$password.'
 				
 				We suggest that you login and change this password at your earliest convenience.');
-					$mail->setBodyHtml('Dear '.$row['uname'].',<br><p>At your request, we have generated a new temporary password for you.  You will find your new password below.  If you did not make this request, you should now that someone used your email address on the \'Forgotten Password\' page at <a href="'.$_SERVER['HTTP_HOST'].'">'.$config->site->name.'</a>.<br><br>Password: '.$password);
-					$mail->setFrom('no-reply@'.$_SERVER['HTTP_HOST'], $config->site->name);
+					$mail->setBodyHtml('Dear '.$row['uname'].',<br><p>At your request, we have generated a new temporary password for you.  You will find your new password below.  If you did not make this request, you should now that someone used your email address on the \'Forgotten Password\' page at <a href="'.$_SERVER['HTTP_HOST'].'">'.$settings->site->name.'</a>.<br><br>Password: '.$password);
+					$mail->setFrom('no-reply@'.$_SERVER['HTTP_HOST'], $settings->site->name);
 					$mail->addTo($email, $email);
 					$mail->setSubject('New Password');
 					$mail->send();	

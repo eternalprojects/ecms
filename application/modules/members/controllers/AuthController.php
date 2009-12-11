@@ -34,8 +34,8 @@ class Members_AuthController extends eCMS_Controller_Action {
 			if(empty($username)){
 				$this->view->message = "Please Provide a Username";
 			}else{
-				$db = Zend_Registry::get('db');
-				$authAdapter = new Zend_Auth_Adapter_DbTable($db);
+				$member = new Members_Model_Members();
+				$authAdapter = new Zend_Auth_Adapter_DbTable($member->getAdapter());
 				$authAdapter->setTableName('members');
 				$authAdapter->setIdentityColumn('uname');
 				$authAdapter->setCredentialColumn('pword');
