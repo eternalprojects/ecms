@@ -11,27 +11,8 @@ with unlimited categories and sub-category support, bi-directional RESTful API, 
 ACLs and optional account activation, optional moderation queue, RSS/Atom/MRSS feeds, User Profiles. More features will 
 be added also, but these are the features planned to be implemented by the v1.0 release of EternalCMS.
 
-#####################
-## Current Version ##
-#####################
-The current version of EternalCMS is v0.4.2. This release has the following features:
-
-    * Posting of single page articles with a summary and content section
-    * Latest News Listing
-    * Most Popular(Most Viewed) News Listing
-    * All News Listing
-    * Installation Script
-    * Bad Word Filter
-    * Users can edit/Post their own articles
-    * User Management
-          o Registration
-          o Login/Logout
-          o Forgot Password
-          o Change Password
-          o Change Email 
-
 ##################
 ## Installation ##
 ##################
 
-Installation instructions are available at: http://p.sf.net/eternalcms/fL03qj2CtYXn9
+Installation instructions are available at: http://docs.eternalcms.com/doku.php/installation
