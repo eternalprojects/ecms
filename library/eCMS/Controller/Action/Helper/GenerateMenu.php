@@ -29,26 +29,26 @@ class eCMS_Controller_Action_Helper_GenerateMenu extends Zend_Controller_Action_
 	}
 	
 	public function getMenu($user = false) {
-		$menu[] = 	 array('uri'=>'','label'=>'News','type'=>'navighead');
-        $menu[] =    array('uri'=>'/view/latest','label'=>'Latest News','type'=>'navig');
-        $menu[] =    array('uri'=>'/view/popular','label'=>'Most Popular','type'=>'navig');
-        $menu[] =    array('uri'=>'/view/all','label'=>'All News','type'=>'navig');
-        $menu[] =    array('uri'=>'/add','label'=>'Submit News','type'=>'navig');
-        $menu[] =    array('uri'=>'','label'=>'Members','type'=>'navighead');
+		$menu['general'][] = 	 array('uri'=>'/','label'=>'News','type'=>'navighead');
+        $menu['general'][] =    array('uri'=>'/view/popular','label'=>'Most Popular','type'=>'navig');
+        $menu['general'][] =    array('uri'=>'/view/all','label'=>'All News','type'=>'navig');
+        if($user)
+			$menu['general'][] =    array('uri'=>'/add','label'=>'Submit News','type'=>'navig');
+        
+		if(!$user)
+        	$menu['member'][] =    array('uri'=>'/members/register','label'=>'Register','type'=>'navig');
         if(!$user)
-        	$menu[] =    array('uri'=>'/members/register','label'=>'Register','type'=>'navig');
+        	$menu['member'][] =    array('uri'=>'/members/auth/login','label'=>'Login','type'=>'navig');
+        if($user)
+        	$menu['member'][] =    array('uri'=>'/members/submissions/view','label'=>'My Submissions','type'=>'navig');
+        if($user)
+        	$menu['member'][] =    array('uri'=>'/members/password/change','label'=>'Change Password','type'=>'navig');
+        if($user)
+        	$menu['member'][] = 	 array('uri'=>'/members/email/change','label'=>'Change Email Address','type'=>'navig');
         if(!$user)
-        	$menu[] =    array('uri'=>'/members/auth/login','label'=>'Login','type'=>'navig');
+        	$menu['member'][] =    array('uri'=>'/members/password/forgot','label'=>'Forgot Password','type'=>'navig');
         if($user)
-        	$menu[] =    array('uri'=>'/members/submissions/view','label'=>'My Submissions','type'=>'navig');
-        if($user)
-        	$menu[] =    array('uri'=>'/members/password/change','label'=>'Change Password','type'=>'navig');
-        if($user)
-        	$menu[] = 	 array('uri'=>'/members/email/change','label'=>'Change Email Address','type'=>'navig');
-        if(!$user)
-        	$menu[] =    array('uri'=>'/members/password/forgot','label'=>'Forgot Password','type'=>'navig');
-        if($user)
-        	$menu[] =    array('uri'=>'/members/auth/logout','label'=>'Logout','type'=>'navig');
+        	$menu['member'][] =    array('uri'=>'/members/auth/logout','label'=>'Logout','type'=>'navig');
             
 			
 		
