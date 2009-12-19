@@ -28,7 +28,7 @@ class Members_RegisterController extends eCMS_Controller_Action
 	if($this->_request->isPost()){
             $formData = $this->_request->getParams();
             if($form->isValid($formData)){
-            	$members = new Members_Model_Members();
+            	$members = new Members_Model_DbTable_Members();
             	$select1 = $members->select()->where('uname = ?', $form->getValue('username'));
                 $select2 = $members->select()->where('email = ?', $form->getValue('email'));
                 if($formData['password'] !== $formData['password2']){
