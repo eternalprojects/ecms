@@ -172,13 +172,14 @@ class Default_Model_NewsMapper
         return $entries;
     }
 
-	public function fetchPage($page, $limit, $style){
+	public function fetchPage($page, $limit, $style)
+	{
 		$select = $this->getDbTable()->select();
-        	$select->order('id DESC');
-        	$pagination = Zend_Paginator::factory($select);
-        	$pagination->setCurrentPageNumber($page);
-        	$pagination->setItemCountPerPage($limit);
-        	$pagination->setDefaultScrollingStyle($style);
+        $select->order('id DESC');
+        $pagination = Zend_Paginator::factory($select);
+        $pagination->setCurrentPageNumber($page);
+        $pagination->setItemCountPerPage($limit);
+        $pagination->setDefaultScrollingStyle($style);
 		Zend_View_Helper_PaginationControl::setDefaultViewPartial('pagination.phtml');
 		return $pagination;
 	

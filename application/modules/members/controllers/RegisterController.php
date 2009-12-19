@@ -44,14 +44,7 @@ class Members_RegisterController extends eCMS_Controller_Action
                   	$form->populate($formData);
                     $this->view->form = $form;
                 }else{
-                    $dbPassword = md5($form->getValue('password'));
-                    $row = $members->createRow();
-                    $row->fname = $form->getValue('firstName');
-                    $row->lname = $form->getValue('lastName');
-                    $row->email = $form->getValue('email');
-                    $row->uname = $form->getValue('username');
-                    $row->pword = $dbPassword;
-                    $id = $row->save();
+                    $members = new Members_Model_Members($form->getValues());
                     
                     $settings = Zend_Registry::get('settings');
                     

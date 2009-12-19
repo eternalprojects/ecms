@@ -84,75 +84,91 @@ class Default_Model_News
         return $this;
     }
 
-	public function setViews($views){
+	public function setViews($views)
+	{
 		$this->_views = $views;
 		return $this;
 	}
 
-	public function getViews(){
+	public function getViews()
+	{
 		return $this->_views;
 	}
 
-	public function setModified($ts){
+	public function setModified($ts)
+	{
         $this->_modified = $ts; 
         return $this;
     }
 
-    public function getModified(){
+    public function getModified()
+    {
         return $this->_modified;
     }
 
-	public function setCreated($ts){
+	public function setCreated($ts)
+	{
         $this->_created = $ts; 
         return $this;
     }
 
-    public function getCreated(){
+    public function getCreated()
+    {
         return $this->_created;
     }
 
-	public function setAuthor($author){
+	public function setAuthor($author)
+	{
         $this->_author = $author; 
         return $this;
     }
 
-    public function getAuthor(){
+    public function getAuthor()
+    {
         return $this->_author;
     }
 
-	public function setContent($content){
+	public function setContent($content)
+	{
         $this->_content = $content; 
         return $this;
     }
 
-    public function getContent(){
+    public function getContent()
+    {
         return $this->_content;
     }
 
-	public function setSummary($summary){
+	public function setSummary($summary)
+	{
         $this->_summary = $summary; 
         return $this;
     }
 
-    public function getSummary(){
+    public function getSummary()
+    {
         return $this->_summary;
     }
 
-	public function setTitle($title){
+	public function setTitle($title)
+	{
         $this->_title = $title; 
         return $this;
     }
 
-    public function getTitle(){
+    public function getTitle()
+    {
         return $this->_title;
     }
 
-	public function setid($id){
+	public function setid($id)
+	{
         $this->_id = $id; 
         return $this;
     }
 
-    public function getId(){
+    public function getId()
+    {
         return $this->_id;
     }
 
@@ -171,7 +187,7 @@ class Default_Model_News
     /**
      * Get data mapper
      *
-     * Lazy loads Default_Model_GuestbookMapper instance if no mapper registered.
+     * Lazy loads Default_Model_GuestbookMapper instance if no mapper registered
      * 
      * @return Default_Model_GuestbookMapper
      */
@@ -193,7 +209,8 @@ class Default_Model_News
         $this->getMapper()->save($this);
     }
 
-	public function addView(){
+	public function addView()
+	{
 		$this->getMapper()->addView($this);
 	}
     /**
@@ -219,15 +236,18 @@ class Default_Model_News
         return $this->getMapper()->fetchAll();
     }
 
-	public function fetchLatest($limit = 10){
+	public function fetchLatest($limit = 10)
+	{
 		return $this->getMapper()->fetchLatest($limit);
 	}
 
-	public function fetchPopular($limit = 10){
+	public function fetchPopular($limit = 10)
+	{
         return $this->getMapper()->fetchPopular($limit);
     }
 	
-	public function fetchPage($page = 1, $limit = 10, $style = 'elastic'){
+	public function fetchPage($page = 1, $limit = 10, $style = 'elastic')
+	{
 		return $this->getMapper()->fetchPage($page, $limit, $style);
 	}
 

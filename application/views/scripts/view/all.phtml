@@ -1,17 +1,21 @@
-<?php foreach ($this->news as $story) { ?>
+<?php foreach ($this->news as $story) 
+{ ?>
 
 <div class="span-18 last story">
-  <div class="span-18 last header"><a href="/view/article/sid/<?php echo $story->id; ?>"><?php echo $this->escape($story->title); ?></a></div>
-  <div class="span-4 author">Author: <?php echo $story->author; ?></div>
-  <div class="span-10 created">Created: <?php echo $story->created; ?></div>
-  <div class="span-4 last views">Views: <?php echo $story->views; ?></div>
-  <div class="span-18 last content" ><?php echo $story->summary; ?><br>
-    <br><span class="readMore"><a href="/view/article/sid/<?php echo $story->id; ?>">Read More >>></a></span>
-  </div>
+<div class="span-18 last header"><a
+	href="/view/article/sid/&lt;?php echo $story-&gt;id; ?&gt;"> <?php echo $this->escape($story->title); ?></a></div>
+<div class="span-4 author">Author: <?php echo $story->author; ?></div>
+<div class="span-10 created">Created: <?php echo $story->created; ?></div>
+<div class="span-4 last views">Views: <?php echo $story->views; ?></div>
+<div class="span-18 last content"><?php echo $story->summary; ?><br>
+<br>
+<span class="readMore"><a
+	href="/view/article/sid/&lt;?php echo $story-&gt;id; ?&gt;">Read
+More &gt;&gt;&gt;</a></span></div>
 </div>
-<?php } ?>
-
-<div align="center">
-<?php echo $this->paginator;
+<?php 
+      } 
 ?>
-</div>
+
+<div align="center"><?php echo $this->paginator;
+?></div>

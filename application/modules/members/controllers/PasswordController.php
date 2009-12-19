@@ -41,10 +41,7 @@ class Members_PasswordController extends eCMS_Controller_Action {
                     	$form->getElement('password2')->addError('Passwords do not match');
                     	$this->view->form = $form;
         			}else{
-        				$dbPassword = md5($formData['password']);
-        				$data = array('pword'=>$dbPassword);
-        				$where = $members->getAdapter()->quoteInto('uname = ?',$user->uname);
-        				$members->update($data, $where);
+        				$members->updatePassword($formData['password']);
         				$this->_redirect('/members/password/changed');
         			}
         		}
@@ -65,13 +62,11 @@ class Members_PasswordController extends eCMS_Controller_Action {
 		if($this->_request->isPost()){
 			$email = $this->_request->getParam('email');
 			$members = new Members_Model_Members();
-			$select = $members->select()->where('email = ?',$email)->limit(1);
-			if($row = $members->fetchRow($select)){
+			$members->fetchMember();
+			if($email = $members->getEmail()){
 				$password = Members_Model_RandPass::generatePass(10);
 				$dbPassword = md5($password);
-				$data = array('pword'=>$dbPassword);
-				$where = $members->getAdapter()->quoteInto('email = ?', $email);
-				$members->update($data, $where);
+				$members->updatePassword($password);
 				$mail = new Zend_Mail();
 				$mail->setBodyText('At your request we have generated a new password for your account.
 				
