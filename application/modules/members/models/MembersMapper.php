@@ -56,7 +56,7 @@ class Members_Model_MembersMapper
      * @param  Default_Model_Guestbook $guestbook
      * @return void
      */
-    public function save(Default_Model_Members $members)
+    public function save(Members_Model_Members $members)
     {
 		$row = $this->getDbTable()->createRow();
         $row->fname = $members->getFirstName();
