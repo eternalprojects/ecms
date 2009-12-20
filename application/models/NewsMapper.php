@@ -68,16 +68,15 @@ class Default_Model_NewsMapper
 			'modified' => date('Y-m-d H:i:s'),
 		);
 
-		if (null === ($id = $news->getId())) {
+		if (!$id = $news->getId()) {
 			$data['views'] = 0;
 			echo "new";
-			var_dump($data);
+			var_dump($id,$data);
 			exit;
 			$this->getDbTable()->insert($data);
 		} else {
-
-			unset($data['created']);
-			var_dump($data);
+		unset($data['created']);
+			var_dump($id,$data);
 			exit;
 			$this->getDbTable()->update($data, array('id = ?' => $id));
 		}
