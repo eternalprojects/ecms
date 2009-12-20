@@ -19,7 +19,7 @@ class InstallController extends eCMS_Controller_Action {
 	}
 	public function indexAction() {
 		$this->view->title = "Installation";
-		$config = new Zend_Config_Ini ( 'application.ini', 'production', array ('skipExtends' => true, 'allowModifications' => true ) );
+		$config = new Zend_Config_Ini (APPLICATION_PATH .'/configs/application.ini', 'production', array ('skipExtends' => true, 'allowModifications' => true ) );
 
 		$installForm = new InstallForm1 ( null, $config );
 		if ($this->_request->isPost ()) {
