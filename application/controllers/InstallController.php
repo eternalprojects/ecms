@@ -46,7 +46,30 @@ class InstallController extends eCMS_Controller_Action {
 	}
 
 	final public function settingsAction(){
-
+		$this->view->title = "Installation";
+		$this->view->subTitle = "Step 2: Site Settings";
+		$config = new Zend_Config_Ini (APPLICATION_PATH .'/configs/siteSettings.ini', 'general', array ('skipExtends' => true, 'allowModifications' => true ) );
+		$settingsForm = new Default_Form_InstallForm2();
+		if($this->_request->isPost()){
+			$formData = $this->_request->getParams();
+			if($settingsForm->isValid($formData)){
+				$config->site->name = $settingsForm->getValue('siteName');
+				$config->site->name = $settingsForm->getValue('siteName');
+				$config->site->name = $settingsForm->getValue('siteName');
+				$config->site->name = $settingsForm->getValue('siteName');
+				$config->site->name = $settingsForm->getValue('siteName');
+				$config->site->name = $settingsForm->getValue('siteName');
+				$config->site->name = $settingsForm->getValue('siteName');
+				try {
+					$writer = new Zend_Config_Writer_Ini ( array ('config' => $config, 'filename' => APPLICATION_PATH .'/configs/siteSettings.ini' ) );
+					$writer->write ();
+				} catch ( Zend_Config_Exception $e ) {
+					die ( $e->getTrace () . "<br><br>" . $e->getMessage () );
+				}
+				$this->_redirect('/install/complete');
+			}
+		}
+		$this->view->form = $settingsForm;
 	}
 
 	final public function completeAction() {

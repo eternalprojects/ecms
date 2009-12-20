@@ -25,7 +25,7 @@ class Default_Form_InstallForm1 extends Zend_Form
 		->addValidator('NotEmpty');
 
 		$submit = new Zend_Form_Element_Submit('submit');
-		$submit->setLabel('Save Settings');
+		$submit->setLabel('Next Step >>>');
 
 
 		$this->addElement($dbHost);
