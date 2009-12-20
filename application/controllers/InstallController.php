@@ -54,12 +54,12 @@ class InstallController extends eCMS_Controller_Action {
 			$formData = $this->_request->getParams();
 			if($settingsForm->isValid($formData)){
 				$config->site->name = $settingsForm->getValue('siteName');
-				$config->site->name = $settingsForm->getValue('siteName');
-				$config->site->name = $settingsForm->getValue('siteName');
-				$config->site->name = $settingsForm->getValue('siteName');
-				$config->site->name = $settingsForm->getValue('siteName');
-				$config->site->name = $settingsForm->getValue('siteName');
-				$config->site->name = $settingsForm->getValue('siteName');
+				$config->site->slogan = $settingsForm->getValue('siteSlogan');
+				$config->limit->latest = $settingsForm->getValue('latestLimit');
+				$config->limit->popular = $settingsForm->getValue('popularLimit');
+				$config->limit->perpage = $settingsForm->getValue('pageLimit');
+				$config->footer->link = $settingsForm->getValue('footerLink');
+				$config->footer->title = $settingsForm->getValue('footerName');
 				try {
 					$writer = new Zend_Config_Writer_Ini ( array ('config' => $config, 'filename' => APPLICATION_PATH .'/configs/siteSettings.ini' ) );
 					$writer->write ();
