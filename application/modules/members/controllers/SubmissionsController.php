@@ -54,6 +54,7 @@ class Members_SubmissionsController extends eCMS_Controller_Action {
 				$data['author'] = $this->view->user->uname;
 				$data['id'] = $sid;
 				$news = new Default_Model_News($data);
+				$news->setId($sid);
 				$news->save();
 				$this->_redirect('/view/article/sid/'.$sid);
 			}
