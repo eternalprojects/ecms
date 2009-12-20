@@ -79,16 +79,16 @@ class Members_SubmissionsController extends eCMS_Controller_Action {
 			$this->_redirect('/members/submissions/view');
 		}
 		$news = new Default_Model_News();
-		$row = $news->find($sid);
-		$this->view->sid = $row->getId();
-		$this->view->articleTitle = $row->getTitle();
+		$news->find($sid);
+		$this->view->sid = $news->getId();
+		$this->view->articleTitle = $news->getTitle();
 	}
 
 	// This needs to be moved to the News DAO/Mapper
 	private function _removeArticle($sid){
 		$news = new Default_Model_News();
-		$row = $news->find($sid);
-		if($this->view->user->uname != $row->getAuthor())
+		$news->find($sid);
+		if($this->view->user->uname != $news->getAuthor())
 		$this->_redirect('/members/submissions/view');
 		$news->deleteStory($sid);
 	}
