@@ -5,7 +5,7 @@ class Default_Form_InstallForm1 extends Zend_Form
 	public function init ()
 	{
 
-		$this->setAction('/install/next')
+		$this->setAction('/install')
 		->setMethod('POST')
 		->setName('install_form');
 
