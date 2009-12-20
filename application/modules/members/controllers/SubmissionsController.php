@@ -52,25 +52,28 @@ class Members_SubmissionsController extends eCMS_Controller_Action {
 			if($form->isValid($formData)){
 				$data = $form->getValues();
 				$data['author'] = $this->view->user->uname;
-				$data['id'] = $sid;
 				$news = new Default_Model_News($data);
 				$news->setId($sid);
 				$news->save();
 				$this->_redirect('/view/article/sid/'.$sid);
+			}else{
+				$form->populate($formData);
+				$this->view->form = $form;
 			}
-		}
+		}else{
 
-		$form->getElement('title')->setValue($news->getTitle());
-		$form->getElement('summary')->setValue($news->getSummary());
-		$form->getElement('content')->setValue($news->getContent());
-		$form->getElement('id')->setValue($sid);
-		$this->view->form = $form;
+			$form->getElement('title')->setValue($news->getTitle());
+			$form->getElement('summary')->setValue($news->getSummary());
+			$form->getElement('content')->setValue($news->getContent());
+			$form->getElement('id')->setValue($sid);
+			$this->view->form = $form;
+		}
 	}
 
 	public function deleteAction(){
 		$this->view->title = "Delete Article";
 		if(!$sid = (int)$this->_request->getParam('sid'))
-			$this->_redirect('/members/submissions/view');
+		$this->_redirect('/members/submissions/view');
 		if($this->_request->getParam('confirm') && $this->_request->getParam('confirm') == 1){
 			$this->_removeArticle($sid);
 			$this->_redirect('/members/submissions/view');
@@ -86,7 +89,7 @@ class Members_SubmissionsController extends eCMS_Controller_Action {
 		$news = new Default_Model_News();
 		$row = $news->find($sid);
 		if($this->view->user->uname != $row->getAuthor())
-			$this->_redirect('/members/submissions/view');
+		$this->_redirect('/members/submissions/view');
 		$news->deleteStory($sid);
 	}
 
