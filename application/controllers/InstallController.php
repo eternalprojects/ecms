@@ -25,10 +25,10 @@ class InstallController extends eCMS_Controller_Action {
 		if ($this->_request->isPost ()) {
 			$formData = $this->_request->getParams ();
 			if ($installForm->isValid ( $formData )) {
-				$config->db->params->host = $formData ['dbHost'];
-				$config->db->params->username = $formData ['dbUser'];
-				$config->db->params->password = $formData ['dbPword'];
-				$config->db->params->dbname = $formData ['dbName'];
+				$config->resources->db->params->host = $formData ['dbHost'];
+				$config->resources->db->params->username = $formData ['dbUser'];
+				$config->resources->db->params->password = $formData ['dbPword'];
+				$config->resources->db->params->dbname = $formData ['dbName'];
 				try {
 					$writer = new Zend_Config_Writer_Ini ( array ('config' => $config, 'filename' => APPLICATION_PATH .'/configs/application.ini' ) );
 					$writer->write ();
@@ -36,7 +36,7 @@ class InstallController extends eCMS_Controller_Action {
 					die ( $e->getTrace () . "<br><br>" . $e->getMessage () );
 				}
 				Default_Model_Install::createTables($this->resource->getDbAdapter());
-				$this->_redirect ( '/install/createdb' );
+				$this->_redirect('/install/complete');
 			}
 		}
 
@@ -49,10 +49,4 @@ class InstallController extends eCMS_Controller_Action {
 		$this->view->bodyCopy = "<p>EternalCMS has successfully been installed.  You may now start adding news stories and using the application</p><p>You should either delete the Install Controller or change the permissions to make it unaccessable, to prevent users from accessing sensative system information.</p>";
 	}
 
-	final public function createdbAction() {
-
-		$this->_helper->viewRenderer->setNoRender ();
-		$this->_redirect ( '/install/complete' );
-
-	}
 }
