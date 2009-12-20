@@ -19,6 +19,7 @@ class InstallController extends eCMS_Controller_Action {
 	}
 	public function indexAction() {
 		$this->view->title = "Installation";
+		$this->view->subTitle = "Step 1: Database Settings";
 		$config = new Zend_Config_Ini (APPLICATION_PATH .'/configs/application.ini', 'production', array ('skipExtends' => true, 'allowModifications' => true ) );
 
 		$installForm = new Default_Form_InstallForm1 ( null, $config );
@@ -36,11 +37,15 @@ class InstallController extends eCMS_Controller_Action {
 					die ( $e->getTrace () . "<br><br>" . $e->getMessage () );
 				}
 				Default_Model_Install::createTables($this->resource->getDbAdapter());
-				$this->_redirect('/install/complete');
+				$this->_redirect('/install/settings');
 			}
 		}
 
 		$this->view->form = $installForm;
+
+	}
+
+	final public function settingsAction(){
 
 	}
 
