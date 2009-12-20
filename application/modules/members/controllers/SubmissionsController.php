@@ -43,7 +43,6 @@ class Members_SubmissionsController extends eCMS_Controller_Action {
 		$news = new Default_Model_News();
 		$form = new Default_Form_EditNews();
 		$news->find($sid);
-		unset($news);
 		$form->setAction('/members/submissions/edit/sid/'.$sid);
 		if($this->_request->isPost()){
 			$formData = $this->_request->getParams();
