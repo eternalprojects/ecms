@@ -1,6 +1,6 @@
 <?php
 
-class Default_Forms_InstallForm1 extends Zend_form
+class Default_Form_InstallForm1 extends Zend_form
 {
 	public function init ()
 	{
