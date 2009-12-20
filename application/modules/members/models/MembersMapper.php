@@ -45,7 +45,7 @@ class Members_Model_MembersMapper
     public function getDbTable()
     {
         if (null === $this->_dbTable) {
-            $this->setDbTable('Default_Model_DbTable_Members');
+            $this->setDbTable('Memebers_Model_DbTable_Members');
         }
         return $this->_dbTable;
     }
