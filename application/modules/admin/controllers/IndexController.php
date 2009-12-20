@@ -7,9 +7,7 @@
  * @version
  */
 
-require_once 'Zend/Controller/Action.php';
-
-class Admin_IndexController extends Zend_Controller_Action
+class Admin_IndexController extends eCMS_Controller_Action
 {
 	/**
 	 * The default action - show the home page
