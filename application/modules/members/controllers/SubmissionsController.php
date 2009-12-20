@@ -42,7 +42,7 @@ class Members_SubmissionsController extends eCMS_Controller_Action {
 		$this->view->title = "Edit Article";
 		$news = new Default_Model_News();
 		$form = new Default_Form_EditNews();
-		$row = $news->find($sid);
+		$news->find($sid);
 		$form->setAction('/members/submissions/edit/sid/'.$sid);
 		if($this->_request->isPost()){
 			$formData = $this->_request->getParams();
@@ -58,9 +58,9 @@ class Members_SubmissionsController extends eCMS_Controller_Action {
 			}
 		}
 
-		$form->getElement('title')->setValue($row->getTitle());
-		$form->getElement('summary')->setValue($row->getSummary());
-		$form->getElement('content')->setValue($row->getContent());
+		$form->getElement('title')->setValue($news->getTitle());
+		$form->getElement('summary')->setValue($news->getSummary());
+		$form->getElement('content')->setValue($news->getContent());
 		$form->getElement('id')->setValue($sid);
 		$this->view->form = $form;
 	}
