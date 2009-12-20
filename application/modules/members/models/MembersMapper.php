@@ -10,7 +10,7 @@
  * @package    QuickStart
  * @subpackage Model
  */
-class Default_Model_MembersMapper
+class Members_Model_MembersMapper
 {
     /**
      * @var Zend_Db_Table_Abstract
