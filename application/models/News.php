@@ -255,7 +255,7 @@ class Default_Model_News
 		return $this->getMapper()->fetchNewsByAuthor($author, $page, $limit, $style);
 	}
 
-	public function deleteStpry($id){
+	public function deleteStory($id){
 		$this->getMapper()->deleteStory($id);
 	}
 }
