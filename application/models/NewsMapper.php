@@ -198,4 +198,10 @@ class Default_Model_NewsMapper
 		return $pagination;
 
 	}
+
+	public function deleteStory($id){
+		$select = $this->getDbTable()->select();
+		$select->where('id = ?', $id);
+		$this->getDbTable()->delete($select);
+	}
 }

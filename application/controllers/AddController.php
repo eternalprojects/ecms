@@ -23,7 +23,7 @@ class AddController extends eCMS_Controller_Action
 			$formData = $this->_request->getPost();
 			if ($form->isValid($formData)) {
 				$data = $form->getValues();
-				$data['author'] = ($this->view->user)?$this->view->user->uname : 'Anonymous';
+				$data['author'] = $this->view->user->uname;
 				$news = new Default_Model_News($data);
 				$news->save();
 				$this->_redirect('view/latest');
