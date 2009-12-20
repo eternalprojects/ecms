@@ -46,7 +46,7 @@ class Members_RegisterController extends eCMS_Controller_Action
 				}else{
 					$members = new Members_Model_Members($form->getValues());
 					$members->save();
-					$id = $members->getAdapter()->lastInsertId();
+					$id = $members->getMapper()->getDbTable()->getAdapter()->lastInsertId();
 					$settings = Zend_Registry::get('settings');
 
 					try{
