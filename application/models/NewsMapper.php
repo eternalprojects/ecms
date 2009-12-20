@@ -70,8 +70,12 @@ class Default_Model_NewsMapper
 
 		if (null === ($id = $news->getId())) {
 			$data['views'] = 0;
+			var_dump($data);
+			exit;
 			$this->getDbTable()->insert($data);
 		} else {
+			var_dump($data);
+			exit;
 			unset($data['created']);
 			$this->getDbTable()->update($data, array('id = ?' => $id));
 		}
