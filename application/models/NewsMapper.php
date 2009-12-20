@@ -200,8 +200,7 @@ class Default_Model_NewsMapper
 	}
 
 	public function deleteStory($id){
-		$select = $this->getDbTable()->select();
-		$select->where('id = ?', $id);
+		$where = $this->getDbTable()->getAdapter()->quoteInto('id = ?',$id);
 		$this->getDbTable()->delete($select);
 	}
 }
