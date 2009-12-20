@@ -1,56 +1,58 @@
 <html>
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title><?php echo $this->siteName; ?></title>
-    <link rel="stylesheet" href="/styles/screen.css" type="text/css" media="screen, projection" />
-    <link rel="stylesheet" href="/print.css" type="text/css" media="print">	
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title><?php echo $this->siteName; ?></title>
+<link rel="stylesheet" href="/styles/screen.css" type="text/css"
+	media="screen, projection" />
+<link rel="stylesheet" href="/print.css" type="text/css" media="print">
 <!--[if lt IE 8]><link rel="stylesheet" href="css/blueprint/ie.css" type="text/css" media="screen, projection"><![endif]-->
-    <link rel="stylesheet" href="/styles/default.css" type="text/css" media="screen, projection" />
-    <script type="text/javascript" src="/scripts/tinymce/jscripts/tiny_mce/tiny_mce.js"></script>
+<link rel="stylesheet" href="/styles/default.css" type="text/css"
+	media="screen, projection" />
+<script type="text/javascript"
+	src="/scripts/tinymce/jscripts/tiny_mce/tiny_mce.js"></script>
 
 <script type="text/javascript">
 tinyMCE.init({
 	mode : "textareas"
 });
-</script>      
-<!--meta_end--></head>
+</script>
+<!--meta_end-->
+</head>
 
 <body>
 <div class="container">
-<div id="header"><?=$this->siteName; ?><br /><span id="motto"><?=$this->slogan; ?></span></div>
-  <div class="span-5">
-    <div class="span-6 urbangreymenu">
-      <h3 class="headerbar">Menu</h3>
-      <ul>    
-        <?php foreach($this->menu['general'] as $item){ ?>
-          <li><a href="<?=$item['uri']; ?>"><?=$item['label']; ?></a></li>
-        <?php } ?>
-      </ul>
-    </div>
-    <div class="span-6 spacer"> </div>
-    <div class="span-6 urbangreymenu">
-      <h3 class="headerbar">Menu</h3>
-      <ul>
-        <?php foreach($this->menu['member'] as $item){ ?>
-          <li><a href="<?=$item['uri']; ?>"><?=$item['label']; ?></a></li>
-        <?php } ?>
-      </ul>
-    </div>
-  </div>
-        
-  <div class="span-19 last" id="welcome">
-     Welcome, <?php if(isset($this->user)){ echo $this->user->uname; }else{ ?>Guest<?php } ?>
-  </div>
+<div id="header"><?=$this->siteName; ?><br />
+<span id="motto"><?=$this->slogan; ?></span></div>
+<div class="span-5">
+<div class="span-6 urbangreymenu">
+<h3 class="headerbar">Menu</h3>
+<ul>
+<?php foreach($this->menu['general'] as $item){ ?>
+	<li><a href="<?=$item['uri']; ?>"><?=$item['label']; ?></a></li>
+	<?php } ?>
+</ul>
+</div>
+<div class="span-6 spacer"></div>
+<div class="span-6 urbangreymenu">
+<h3 class="headerbar">Menu</h3>
+<ul>
+<?php foreach($this->menu['member'] as $item){ ?>
+	<li><a href="<?=$item['uri']; ?>"><?=$item['label']; ?></a></li>
+	<?php } ?>
+</ul>
+</div>
+</div>
 
-  <div class="span-19 last" id="pageHead">
-    <?php echo $this->title; ?>
-  </div>
+<div class="span-19 last" id="welcome">Welcome, <?php if(isset($this->user)){ echo $this->user->uname; }else{ ?>Guest<?php } ?>
+</div>
 
-  <div class="span-19 last">
-    <?php echo $this->layout()->content; ?>
-  </div>
+<div class="span-19 last" id="pageHead"><?php echo $this->title; ?></div>
 
-  <div id="footer" class="span-24 last">Copyright &copy;2009 - <a href="http://www.jplwebsolutions.com">JPL Web Solutions</a>.&nbsp; All Rights Reserved</div>
+<div class="span-19 last"><?php echo $this->layout()->content; ?></div>
+
+<div id="footer" class="span-24 last">Copyright &copy;2009 - <a
+	href="http://www.jplwebsolutions.com">JPL Web Solutions</a>.&nbsp; All
+Rights Reserved</div>
 </div>
 </BODY>
 </HTML>

@@ -1,4 +1,4 @@
-<?php foreach ($this->news as $story) 
+<?php foreach ($this->news as $story)
 { ?>
 
 <div class="span-18 last story">
@@ -10,11 +10,11 @@
 <div class="span-18 last content"><?php echo $story->summary; ?><br>
 <br>
 <span class="readMore"><a
-	href="/view/article/sid/&lt;?php echo $story-&gt;id; ?&gt;">Read
-More &gt;&gt;&gt;</a></span></div>
+	href="/view/article/sid/&lt;?php echo $story-&gt;id; ?&gt;">Read More
+&gt;&gt;&gt;</a></span></div>
 </div>
-<?php 
-      } 
+<?php
+}
 ?>
 
 <div align="center"><?php echo $this->paginator;

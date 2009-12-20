@@ -1,13 +1,11 @@
 <div class="span-18 last">
-<div class="span-18 last midAlign">
-<?php echo $this->bodyCopy;
-?></div><?php
+<div class="span-18 last midAlign"><?php echo $this->bodyCopy;
+?></div>
+<?php
 if(!$this->email) :?>
 <div class="span-7 push-6 last formPage">
-<form action="/members/email/change" method=POST>
-New Email: <input type="text" name="email" /><br>
-<input type="submit" name="submit" value="Change Email" />
-</form></div>
-<?php endif; ?>
-
+<form action="/members/email/change" method=POST>New Email: <input
+	type="text" name="email" /><br>
+<input type="submit" name="submit" value="Change Email" /></form>
 </div>
+<?php endif; ?></div>

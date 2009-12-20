@@ -1,11 +1,11 @@
 <div class="span-18i last">
-<div class="span-18 last midAlign">
-<?php echo $this->bodyCopy; ?>
-</div>
+<div class="span-18 last midAlign"><?php echo $this->bodyCopy; ?></div>
 <?php if(!$this->sent) :?>
-<div class="span-18 last"><div class="span-7 push-6 formPage">
-<form action="/members/password/forgot" method=POST>
-Email Address: <input type="text" name="email"><br>
-<input type="submit" value="Request Password">
-</form></div></div>
+<div class="span-18 last">
+<div class="span-7 push-6 formPage">
+<form action="/members/password/forgot" method=POST>Email Address: <input
+	type="text" name="email"><br>
+<input type="submit" value="Request Password"></form>
+</div>
+</div>
 <?php endif;?></div>

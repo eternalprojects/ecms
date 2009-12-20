@@ -174,17 +174,17 @@ class Members_Model_Members
 		}
 		return $this->_mapper;
 	}
-	
+
 	public function save()
 	{
 		$this->getMapper()->save($this);
 	}
-	
+
 	public function updateEmail($email)
 	{
 		$this->getMapper()->updateEmail($email);
 	}
-	
+
 	public function updatePassword($password)
 	{
 		$this->getMapper()->updatePassword($password);

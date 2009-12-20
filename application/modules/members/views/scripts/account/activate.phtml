@@ -1,12 +1,15 @@
 <?php
 if($this->status == "Success"){
-?>
+	?>
 <h3>Activation Successful</h3>
-<p>Your account has been successfully activated.  You may now login to your account <a href="/members/auth/login">here</a></p>
-<?php 
+<p>Your account has been successfully activated. You may now login to
+your account <a href="/members/auth/login">here</a></p>
+	<?php
 }else{
-?>
-<h3>Activation Failed</h3><p>There was an error while trying to activate your account, please try again later.  If you are still having trouble please contact support.</p>
-<?php 
+	?>
+<h3>Activation Failed</h3>
+<p>There was an error while trying to activate your account, please try
+again later. If you are still having trouble please contact support.</p>
+	<?php
 }
 ?>

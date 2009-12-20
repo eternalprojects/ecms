@@ -2,9 +2,9 @@
 
 /**
  * AuthController
- * 
+ *
  * @author
- * @version 
+ * @version
  */
 
 require_once 'eCMS/Controller/Action.php';
@@ -13,17 +13,17 @@ class Members_AuthController extends eCMS_Controller_Action {
 	/**
 	 * The default action - show the home page
 	 */
-	
+
 	public function init(){
 		parent::init();
 		$this->initView();
-		
+
 	}
 	public function indexAction() {
 		// TODO Auto-generated AuthController::indexAction() default action
 		$this->_redirect('/');
 	}
-	
+
 	public function loginAction(){
 		$this->view->title = "Member Login";
 		$this->view->message = '';
@@ -42,7 +42,7 @@ class Members_AuthController extends eCMS_Controller_Action {
 				$authAdapter->setCredentialTreatment('md5(?)');
 				$authAdapter->setIdentity($username);
 				$authAdapter->setCredential($password);
-				
+
 				$auth = Zend_Auth::getInstance();
 				$result = $auth->authenticate($authAdapter);
 				if($result->isValid()){
@@ -55,14 +55,14 @@ class Members_AuthController extends eCMS_Controller_Action {
 						$this->view->notActive = TRUE;
 						$auth->clearIdentity();
 					}
-					
+						
 				}else{
 					$this->view->message = "Your username/password is incorrect";
 				}
 			}
 		}
 	}
-	
+
 	public function logoutAction(){
 		Zend_Auth::getInstance()->clearIdentity();
 		$this->_redirect('/');

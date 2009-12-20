@@ -11,7 +11,7 @@ class eCMS_Layout_ModuleLayoutDirectory extends Zend_Layout_Controller_Plugin_La
 				break;
 		}
 	}
-	
+
 	protected function _moduleChange($moduleName){
 		$this->getLayout()->setLayoutPath(dirname(dirname($this->getLayout()->getLayoutPath())) . DIRECTORY_SEPARATOR . $moduleName .'/layouts');
 	}

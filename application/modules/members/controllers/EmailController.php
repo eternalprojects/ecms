@@ -41,7 +41,7 @@ class Members_EmailController extends eCMS_Controller_Action {
 				$this->view->bodyCopy = "Your email address has successfully been changed to: $email";
 				$this->view->email = true;
 			}
-				
+
 		}
 	}
 
