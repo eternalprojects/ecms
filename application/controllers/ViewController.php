@@ -42,8 +42,6 @@ class ViewController extends eCMS_Controller_Action
 		$this->view->news = $paginator->getItemsByPage($page);
 		$this->view->paginator = $paginator;
 	}
-	public function cssAction ()
-	{}
 
 	public function articleAction(){
 		$id = $this->_request->getParam('sid');

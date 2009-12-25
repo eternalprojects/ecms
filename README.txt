@@ -1,4 +1,4 @@
-EternalCMS - a PHP/Zend Framework based Content Management System
+EternalCMS v0.5 - a PHP/Zend Framework based Content Management System
 Copyright 2009 - JPL Web Solutions
 -----------------------------------------------------------------
 
@@ -14,5 +14,4 @@ be added also, but these are the features planned to be implemented by the v1.0 
 ##################
 ## Installation ##
 ##################
-
-Installation instructions are available at: http://docs.eternalcms.com/doku.php/installation
+Installation instructions are available at: http://docs.eternalcms.com/installation

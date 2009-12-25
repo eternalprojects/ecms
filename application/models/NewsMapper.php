@@ -203,4 +203,15 @@ class Default_Model_NewsMapper
 		$where = $this->getDbTable()->getAdapter()->quoteInto('id = ?',$id);
 		$this->getDbTable()->delete($where);
 	}
+	
+	public function fetchAllNews($page, $limit, $style){
+	    $select = $this->getDbTable()->select();
+		$select->order('created DESC');
+		$pagination = Zend_Paginator::factory($select);
+		$pagination->setCurrentPageNumber($page);
+		$pagination->setItemCountPerPage($limit);
+		$pagination->setDefaultScrollingStyle($style);
+		Zend_View_Helper_PaginationControl::setDefaultViewPartial('pagination.phtml');
+		return $pagination;
+	}
 }

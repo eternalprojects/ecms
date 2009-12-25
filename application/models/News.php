@@ -258,4 +258,8 @@ class Default_Model_News
 	public function deleteStory($id){
 		$this->getMapper()->deleteStory($id);
 	}
+	
+	public function fetchAllNews($page, $limit, $style = 'elastic'){
+	    return $this->getMapper()->fetchAllNews($page, $limit, $style);
+	}
 }

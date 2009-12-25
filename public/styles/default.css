@@ -181,3 +181,33 @@
 .newsListAction {
 	text-align: center;
 }
+
+.adminCat{
+	text-align: center;
+	font-weight: bold;
+	font-size: 2em;
+	color: #999;
+}
+
+.adminCont {
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+	padding: 5px;
+	border: 1px solid #999;
+	margin-bottom: 15px;
+	font-size: 1.3em;
+}
+
+.adminList {
+	border-bottom: 1px solid #999;
+	
+}
+
+.adminRight {
+	border-left: 1px solid #999;
+	padding-left: 5px;
+}
+
+.adminListBot {
+
+}

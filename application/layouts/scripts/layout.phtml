@@ -25,7 +25,7 @@ tinyMCE.init({
 <span id="motto"><?=$this->slogan; ?></span></div>
 <div class="span-5">
 <div class="span-6 urbangreymenu">
-<h3 class="headerbar">Menu</h3>
+<h3 class="headerbar">News</h3>
 <ul>
 <?php foreach($this->menu['general'] as $item){ ?>
 	<li><a href="<?=$item['uri']; ?>"><?=$item['label']; ?></a></li>
@@ -34,13 +34,24 @@ tinyMCE.init({
 </div>
 <div class="span-6 spacer"></div>
 <div class="span-6 urbangreymenu">
-<h3 class="headerbar">Menu</h3>
+<h3 class="headerbar">Members</h3>
 <ul>
 <?php foreach($this->menu['member'] as $item){ ?>
 	<li><a href="<?=$item['uri']; ?>"><?=$item['label']; ?></a></li>
 	<?php } ?>
 </ul>
 </div>
+<?php if(isset($this->user) && $this->user->uname == 'admin'): ?>
+<div class="span-6 spacer"></div>
+<div class="span-6 urbangreymenu">
+<h3 class="headerbar">Administration</h3>
+<ul>
+<?php foreach($this->menu['admin'] as $item){ ?>
+        <li><a href="<?=$item['uri']; ?>"><?=$item['label']; ?></a></li>
+        <?php } ?>
+</ul>
+</div>
+<?php endif; ?>
 </div>
 
 <div class="span-19 last" id="welcome">Welcome, <?php if(isset($this->user)){ echo $this->user->uname; }else{ ?>Guest<?php } ?>

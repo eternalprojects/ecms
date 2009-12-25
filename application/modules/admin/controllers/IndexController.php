@@ -14,6 +14,6 @@ class Admin_IndexController extends eCMS_Controller_Action
 	 */
 	public function indexAction()
 	{
-
+        $this->_redirect('/admin/settings');
 	}
 }

@@ -193,4 +193,16 @@ class Members_Model_Members
 	public function fetchMember(){
 		$this->getMapper()->fetchMembers($this);
 	}
+
+	public function fetchAllMembers($page, $limit, $style = 'elastic'){
+	    return $this->getMapper()->fetchAllMembers($page, $limit, $style);
+	}
+	
+	public function activateMember($username){
+	    $this->getMapper()->activateMember($username);
+	}
+	
+	public function deactivateMember($username){
+	    $this->getMapper()->deactivateMember();
+	}
 }

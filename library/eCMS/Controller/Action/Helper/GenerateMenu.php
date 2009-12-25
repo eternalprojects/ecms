@@ -29,11 +29,11 @@ class eCMS_Controller_Action_Helper_GenerateMenu extends Zend_Controller_Action_
 	}
 
 	public function getMenu($user = false) {
-		$menu['general'][] = 	 array('uri'=>'/','label'=>'News','type'=>'navighead');
-		$menu['general'][] =    array('uri'=>'/view/popular','label'=>'Most Popular','type'=>'navig');
-		$menu['general'][] =    array('uri'=>'/view/all','label'=>'All News','type'=>'navig');
+		$menu['general'][] = 	 array('uri'=>'/','label'=>'Latest News');
+		$menu['general'][] =    array('uri'=>'/view/popular','label'=>'Most Popular');
+		$menu['general'][] =    array('uri'=>'/view/all','label'=>'All News');
 		if($user)
-		$menu['general'][] =    array('uri'=>'/add','label'=>'Submit News','type'=>'navig');
+		$menu['general'][] =    array('uri'=>'/add','label'=>'Submit News');
 
 		if(!$user)
 		$menu['member'][] =    array('uri'=>'/members/register','label'=>'Register','type'=>'navig');
@@ -50,7 +50,11 @@ class eCMS_Controller_Action_Helper_GenerateMenu extends Zend_Controller_Action_
 		if($user)
 		$menu['member'][] =    array('uri'=>'/members/auth/logout','label'=>'Logout','type'=>'navig');
 
-			
+        if(isset($user->uname) && $user->uname == 'admin'):
+            $menu['admin'][] = array('uri'=>'/admin/settings','label'=>'Settings');
+            $menu['admin'][] = array('uri'=>'/admin/members','label'=>'Members');
+            $menu['admin'][] = array('uri'=>'/admin/news','label'=>'News');
+        endif;
 
 		return $menu;
 

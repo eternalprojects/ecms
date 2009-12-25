@@ -1,0 +1,16 @@
+<?php foreach($this->users as $user){ ?>
+<div class="span-18 last newsListing">
+<div class="span-15 newsListTitle"><?php echo $user['uname']; ?>
+</div>
+<div class="span-2 last newsListAction">
+<?php if($user['active'] != 1){ ?>
+<a href="/admin/members/activate/<?php echo $user['uname']; ?>">Activate</a>
+<?php }else{ ?>
+<a href="/admin/members/deactivate/<?php echo $user['uname']; ?>">Deactivate</a>
+<?php } ?>
+</div>
+</div>
+<?php } ?>
+<div class="span-18 last midAlign"><?php
+echo $this->paginator;
+?></div>
