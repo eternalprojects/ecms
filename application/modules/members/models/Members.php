@@ -203,6 +203,6 @@ class Members_Model_Members
 	}
 	
 	public function deactivateMember($username){
-	    $this->getMapper()->deactivateMember();
+	    $this->getMapper()->deactivateMember($username);
 	}
 }
