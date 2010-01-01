@@ -93,12 +93,12 @@ class Members_Model_MembersMapper
     }
     public function activateMember ($username)
     {
-        $data['active'] = '1';
+        $data['active'] = 1;
         $this->getDbTable()->update($data, $this->getDbTable()->getAdapter()->quoteInto('uname = ?', $username));
     }
     public function deactivateMember ($username)
     {
-        $data['active'] = '0';
+        $data['active'] = 0;
         $this->getDbTable()->update($data, $this->getDbTable()->getAdapter()->quoteInto('uname = ?', $username));
     }
 }
