@@ -28,7 +28,7 @@ class Default_Model_Install
 			  PRIMARY KEY (`id`)
 			) ENGINE=MyISAM  DEFAULT CHARSET=latin1";
 		$db->query ( $sql2 );
-		$sql3 = "insert into members (fname, lname, uname, pword, email, active) values ('Admin','Istrator','admin','21232f297a57a5a743894a0e4a801fc3','admin@example.com','1')";
+		$sql3 = "insert into members (fname, lname, uname, pword, email, active) values ('Admin','Istrator','admin','0192023a7bbd73250516f069df18b500','admin@example.com','1')";
 		$db->query($sql3);
 	}
 }
