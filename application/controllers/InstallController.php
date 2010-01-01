@@ -46,7 +46,7 @@ class InstallController extends eCMS_Controller_Action {
 	}
 
 	final public function settingsAction(){
-		Default_Model_Install::createTables($this->resource->getDbAdapter());
+		
 		$this->view->title = "Installation";
 		$this->view->subTitle = "Step 2: Site Settings";
 		$config = new Zend_Config_Ini (APPLICATION_PATH .'/configs/siteSettings.ini', 'general', array ('skipExtends' => true, 'allowModifications' => true ) );
@@ -70,6 +70,7 @@ class InstallController extends eCMS_Controller_Action {
 				$this->_redirect('/install/complete');
 			}
 		}
+		Default_Model_Install::createTables($this->resource->getDbAdapter());
 		$this->view->form = $settingsForm;
 	}
 
