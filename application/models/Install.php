@@ -30,5 +30,7 @@ class Default_Model_Install
 		$db->query ( $sql2 );
 		$sql3 = "insert into members (fname, lname, uname, pword, email, active) values ('Admin','Istrator','admin','0192023a7bbd73250516f069df18b500','admin@example.com','1')";
 		$db->query($sql3);
+		$sql4 = "create table if not exists `categories` (`id` int(11) not null auto_increment, `parent_id` int(11) not null, `name` varchar(64) not null, primary key (`id`))";
+		$db->query($sql4);
 	}
 }
