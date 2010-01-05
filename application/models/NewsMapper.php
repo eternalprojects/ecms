@@ -16,7 +16,11 @@ class Default_Model_NewsMapper
 	 * @var Zend_Db_Table_Abstract
 	 */
 	protected $_dbTable;
+	protected $_catTable;
 
+	public function __construct(){
+		$this->_catTable = new Default_Model_DbTable_Category();
+	}
 	/**
 	 * Specify Zend_Db_Table instance to use for data operations
 	 *
@@ -95,7 +99,10 @@ class Default_Model_NewsMapper
 		if (0 == count($result)) {
 			return;
 		}
+		
 		$row = $result->current();
+		$res = $this->_catTable->find($row->category);
+		$crow = $res->current();
 		$news->setId($row->id)
 		->setTitle($row->title)
 		->setSummary($row->summary)
@@ -103,7 +110,8 @@ class Default_Model_NewsMapper
 		->setAuthor($row->author)
 		->setCreated($row->created)
 		->setModified($row->modified)
-		->setViews($row->views);
+		->setViews($row->views)
+		->setCategory($crow->name);
 
 	}
 
@@ -114,7 +122,8 @@ class Default_Model_NewsMapper
 	 */
 	public function fetchAll()
 	{
-		$resultSet = $this->getDbTable()->fetchAll();
+		$sql = $this->getDbTable()->getDeaultAdapter()->quoteInto("select n.*, c.name from news n, categories c");
+		$resultSet = $this->getDbTable()->getDefaultAdapter()->fetchAll($sql);
 		$entries   = array();
 		foreach ($resultSet as $row) {
 			$entry = new Default_Model_News();
@@ -134,7 +143,8 @@ class Default_Model_NewsMapper
 
 	public function fetchLatest($limit)
 	{
-		$resultSet = $this->getDbTable()->fetchAll(null, 'id DESC', (int)$limit);
+		$sql = $this->getDbTable()->getDeaultAdapter()->quoteInto("select n.*, c.name from news n, categories c");
+		$resultSet = $this->getDbTable()->getDefaultAdapter()->fetchAll($sql, 'id DESC', (int)$limit);
 		$entries   = array();
 		foreach ($resultSet as $row) {
 			$entry = new Default_Model_News();

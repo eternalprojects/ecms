@@ -12,6 +12,7 @@
  */
 class Default_Model_News
 {
+	protected $_category;
 	protected $_views;
 	protected $_modified;
 	protected $_created;
@@ -82,6 +83,15 @@ class Default_Model_News
 			}
 		}
 		return $this;
+	}
+
+	public function setCategory($category){
+		$this->_category = $category;
+		return $this;
+	}
+
+	public function getCategory(){
+		return $this->_category;
 	}
 
 	public function setViews($views)
