@@ -5,7 +5,7 @@
 .urbangreymenu .headerbar {
 	font: bold 13px Verdana;
 	color: white;
-	background: #606060 url(/image/menu/arrowstop.gif) no-repeat 8px 6px;
+	background: #606060 url(/images/menu/arrowstop.gif) no-repeat 8px 6px;
 	/*last 2 values are the x and y coordinates of bullet image*/
 	margin-bottom: 0; /*bottom spacing between header and rest of content*/
 	text-transform: uppercase;
