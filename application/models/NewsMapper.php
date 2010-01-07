@@ -142,7 +142,7 @@ class Default_Model_NewsMapper
 	{
 		$db = $this->getDbTable()->getDefaultAdapter();
 		$select = $db->select()->from(array('n'=>'news'))->join(array('c'=>'categories'),'n.cat_id = c.id')->order('n.id DESC')->limit(10);
-		$resultSet = $db->fetchAll($select);
+		$resultSet = $db->fetchAll($select,null,Zend_Db::FETCH_OBJ);
 		$entries   = array();
 		foreach ($resultSet as $row) {
 			$entry = new Default_Model_News();
