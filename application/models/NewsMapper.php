@@ -16,7 +16,7 @@ class Default_Model_NewsMapper
 	 * @var Zend_Db_Table_Abstract
 	 */
 	protected $_dbTable;
-	
+
 	/**
 	 * Specify Zend_Db_Table instance to use for data operations
 	 *
@@ -97,7 +97,7 @@ class Default_Model_NewsMapper
 		if (0 == count($result)) {
 			return;
 		}
-		
+
 		$row = $result->current();
 		$news->setId($row->id)
 		->setTitle($row->title)
@@ -189,7 +189,7 @@ class Default_Model_NewsMapper
 		$db = $this->getDbTable()->getDefaultAdapter();
 		$db->setFetchMode(Zend_Db::FETCH_OBJ);
 		$select = $db->select()->from(array('n'=>'news'))->join(array('c'=>'categories'),'n.cat_id = c.id')->order('n.created DESC');
-		$pagination = Zend_Paginator::factory($select,$db);
+		$pagination = Zend_Paginator::factory($select);
 		$pagination->setCurrentPageNumber($page);
 		$pagination->setItemCountPerPage($limit);
 		$pagination->setDefaultScrollingStyle($style);
@@ -217,10 +217,10 @@ class Default_Model_NewsMapper
 		$where = $this->getDbTable()->getAdapter()->quoteInto('id = ?',$id);
 		$this->getDbTable()->delete($where);
 	}
-	
+
 	public function fetchAllNews($page, $limit, $style){
 		$db = $this->getDbTable()->getDefaultAdapter();
-	    $db = $this->getDbTable()->getDefaultAdapter();
+		$db = $this->getDbTable()->getDefaultAdapter();
 		$select = $db->select()->from(array('n'=>'news'))->join(array('c'=>'categories'),'n.cat_id = c.id')->order('n.created DESC');
 		$pagination = Zend_Paginator::factory($select);
 		$pagination->setCurrentPageNumber($page);
