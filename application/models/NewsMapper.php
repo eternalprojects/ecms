@@ -126,12 +126,11 @@ class Default_Model_NewsMapper
 	{
 		$db = $this->getDbTable()->getDefaultAdapter();
 		$select = $db->select()->from(array('n'=>'news'))->join(array('c'=>'categories'),'n.cat_id = c.id')->where('n.id = ?', $id)->order('n.id DESC')->limit(10);
-		$result = $db->fetchRow($select,null,Zend_Db::FETCH_OBJ);
+		$row = $db->fetchRow($select,null,Zend_Db::FETCH_OBJ);
 		if (0 == count($result)) {
 			return;
 		}
 
-		$row = $result->current();
 		$news->setId($row->id)
 		->setTitle($row->title)
 		->setSummary($row->summary)
