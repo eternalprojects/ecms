@@ -119,7 +119,7 @@ class Default_Model_NewsMapper
 	public function fetchAll()
 	{
 		$db = $this->getDbTable()->getDefaultAdapter();
-		$select = $db->select()->from(array('n'=>'news'))->join(array('c'=>'categories'),'p.cat_id = c.id')->order('id DESC')->limit(10);
+		$select = $db->select()->from(array('n'=>'news'))->join(array('c'=>'categories'),'n.cat_id = c.id')->order('id DESC')->limit(10);
 		$resultSet = $db->fetchAll($select);
 		$entries   = array();
 		foreach ($resultSet as $row) {
@@ -141,7 +141,7 @@ class Default_Model_NewsMapper
 	public function fetchLatest($limit)
 	{
 		$db = $this->getDbTable()->getDefaultAdapter();
-		$select = $db->select()->from(array('n'=>'news'))->join(array('c'=>'categories'),'p.cat_id = c.id')->order('id DESC')->limit(10);
+		$select = $db->select()->from(array('n'=>'news'))->join(array('c'=>'categories'),'n.cat_id = c.id')->order('id DESC')->limit(10);
 		$resultSet = $db->fetchAll($select);
 		$entries   = array();
 		foreach ($resultSet as $row) {
