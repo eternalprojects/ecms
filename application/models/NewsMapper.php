@@ -118,8 +118,9 @@ class Default_Model_NewsMapper
 	 */
 	public function fetchAll()
 	{
-		$sql = $this->getDbTable()->getDefaultAdapter()->quoteInto("select n.*, c.name from news n, categories c");
-		$resultSet = $this->getDbTable()->getDefaultAdapter()->fetchAll($sql);
+		$db = $this->getDbTable()->getDefaultAdapter();
+		$select = $db->select()->from(array('n'=>'news'))->join(array('c'=>'category'),'p.cat_id = c.id')->order('id DESC')->limit(10);
+		$resultSet = $db->fetchAll($select);
 		$entries   = array();
 		foreach ($resultSet as $row) {
 			$entry = new Default_Model_News();
@@ -139,8 +140,9 @@ class Default_Model_NewsMapper
 
 	public function fetchLatest($limit)
 	{
-		$sql = $this->getDbTable()->getDefaultAdapter()->quoteInto("select n.*, c.name from news n, categories c");
-		$resultSet = $this->getDbTable()->getDefaultAdapter()->fetchAll($sql, 'id DESC', (int)$limit);
+		$db = $this->getDbTable()->getDefaultAdapter();
+		$select = $db->select()->from(array('n'=>'news'))->join(array('c'=>'category'),'p.cat_id = c.id')->order('id DESC')->limit(10);
+		$resultSet = $db->fetchAll($select);
 		$entries   = array();
 		foreach ($resultSet as $row) {
 			$entry = new Default_Model_News();
