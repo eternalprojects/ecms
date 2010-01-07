@@ -96,4 +96,11 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         //Read the routes from an ini file and in that ini file use the options with routes prefix...
         $front->getRouter()->addConfig(new Zend_Config_Ini(APPLICATION_PATH . "/configs/routes.ini"), "routes");
     }
+    
+    protected function _initDb()
+    {
+    	$this->bootstrap("db");
+    	$db = $this->getResource("db");
+    	$db->setFetchMode(Zend_Db::FETCH_OBJ);
+    }
 }
