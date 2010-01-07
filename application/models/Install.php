@@ -4,17 +4,20 @@ class Default_Model_Install
 {
 	public static function createTables($db){
 		$sql = "CREATE TABLE IF NOT EXISTS `news` (
-  			`id` int(11) NOT NULL auto_increment,
-  			`title` varchar(64) NOT NULL,
-  			`summary` varchar(255) NOT NULL,
-  			`content` longtext NOT NULL,
-  			`author` varchar(128) NOT NULL,
-  			`created` datetime NOT NULL default '0000-00-00 00:00:00',
-  			`modified` datetime NOT NULL default '0000-00-00 00:00:00',
-  			`views` int(11) NOT NULL,
-  			PRIMARY KEY  (`id`),
-  			KEY `title` (`title`,`summary`,`author`)
-			) ENGINE=MyISAM DEFAULT CHARSET=latin1 COMMENT='Holds News story meta data'";
+  			`id` int(11) NOT NULL AUTO_INCREMENT,
+			  `title` varchar(64) NOT NULL,
+			  `summary` varchar(255) NOT NULL,
+			  `content` longtext NOT NULL,
+			  `author` varchar(128) NOT NULL,
+			  `cat_id` int(11) NOT NULL DEFAULT '1',
+			  `created` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+			  `modified` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+			  `views` int(11) NOT NULL,
+			  PRIMARY KEY (`id`),
+			  KEY `cat_id` (`cat_id`),
+			  KEY `author` (`author`),
+			  KEY `views` (`views`)
+			) ENGINE=MyISAM DEFAULT CHARSET=latin1 COMMENT='Holds News story meta data' AUTO_INCREMENT=1 ;";
 		$db->query ( $sql );
 		$sql2 = "CREATE TABLE IF NOT EXISTS `members` (
   			  `id` int(11) NOT NULL AUTO_INCREMENT,
