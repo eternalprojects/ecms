@@ -92,7 +92,7 @@ class Default_Model_NewsMapper
 	public function find($id, Default_Model_News $news)
 	{
 		$db = $this->getDbTable()->getDefaultAdapter();
-		$select = $db->select()->from(array('n'=>'news'))->join(array('c'=>'categories'),'n.cat_id = c.id')->where('id = ?', $id)->order('n.id DESC')->limit(10);
+		$select = $db->select()->from(array('n'=>'news'))->join(array('c'=>'categories'),'n.cat_id = c.id')->where('n.id = ?', $id)->order('n.id DESC')->limit(10);
 		$result = $db->fetchRow($select,null,Zend_Db::FETCH_OBJ);
 		if (0 == count($result)) {
 			return;
