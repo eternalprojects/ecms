@@ -91,14 +91,14 @@ class Default_Model_NewsMapper
 	 */
 	public function find($id, Default_Model_News $news)
 	{
-		$result = $this->getDbTable()->find($id);
+		$db = $this->getDbTable()->getDefaultAdapter();
+		$select = $db->select()->from(array('n'=>'news'))->join(array('c'=>'categories'),'n.cat_id = c.id')->where('id = ?', $id)->order('n.id DESC')->limit(10);
+		$result = $db->fetchRow($select,null,Zend_Db::FETCH_OBJ);
 		if (0 == count($result)) {
 			return;
 		}
 		
 		$row = $result->current();
-		$res = $this->_catTable->find($row->category);
-		$crow = $res->current();
 		$news->setId($row->id)
 		->setTitle($row->title)
 		->setSummary($row->summary)
@@ -107,7 +107,7 @@ class Default_Model_NewsMapper
 		->setCreated($row->created)
 		->setModified($row->modified)
 		->setViews($row->views)
-		->setCategory($crow->name);
+		->setCategory($row->name);
 
 	}
 
@@ -129,6 +129,7 @@ class Default_Model_NewsMapper
 			->setSummary($row->summary)
 			->setContent($row->content)
 			->setAuthor($row->author)
+			->setCategory($row->name)
 			->setCreated($row->created)
 			->setModified($row->modified)
 			->setViews($row->views)
@@ -151,6 +152,7 @@ class Default_Model_NewsMapper
 			->setSummary($row->summary)
 			->setContent($row->content)
 			->setAuthor($row->author)
+			->setCategory($row->name)
 			->setCreated($row->created)
 			->setModified($row->modified)
 			->setViews($row->views)
@@ -162,7 +164,9 @@ class Default_Model_NewsMapper
 
 	public function fetchPopular($limit)
 	{
-		$resultSet = $this->getDbTable()->fetchAll(null, 'views DESC', (int)$limit);
+		$db = $this->getDbTable()->getDefaultAdapter();
+		$select = $db->select()->from(array('n'=>'news'))->join(array('c'=>'categories'),'n.cat_id = c.id')->order('n.views DESC')->limit(10);
+		$resultSet = $db->fetchAll($select,null,Zend_Db::FETCH_OBJ);
 		$entries   = array();
 		foreach ($resultSet as $row) {
 			$entry = new Default_Model_News();
@@ -182,8 +186,8 @@ class Default_Model_NewsMapper
 
 	public function fetchPage($page, $limit, $style)
 	{
-		$select = $this->getDbTable()->select();
-		$select->order('id DESC');
+		$db = $this->getDbTable()->getDefaultAdapter();
+		$select = $db->select()->from(array('n'=>'news'))->join(array('c'=>'categories'),'n.cat_id = c.id')->order('n.created DESC');
 		$pagination = Zend_Paginator::factory($select);
 		$pagination->setCurrentPageNumber($page);
 		$pagination->setItemCountPerPage($limit);
@@ -195,9 +199,10 @@ class Default_Model_NewsMapper
 
 	public function fetchNewsByAuthor($author, $page, $limit, $style)
 	{
-		$select = $this->getDbTable()->select();
-		$select->where('author = ?', $author)
-		->order('created DESC');
+		$db = $this->getDbTable()->getDefaultAdapter();
+		$select = $db->select()->from(array('n'=>'news'))->join(array('c'=>'categories'),'n.cat_id = c.id');
+		$select->where('n.author = ?', $author)
+		->order('n.created DESC');
 		$pagination = Zend_Paginator::factory($select);
 		$pagination->setCurrentPageNumber($page);
 		$pagination->setItemCountPerPage($limit);
@@ -213,8 +218,9 @@ class Default_Model_NewsMapper
 	}
 	
 	public function fetchAllNews($page, $limit, $style){
-	    $select = $this->getDbTable()->select();
-		$select->order('created DESC');
+		$db = $this->getDbTable()->getDefaultAdapter();
+	    $db = $this->getDbTable()->getDefaultAdapter();
+		$select = $db->select()->from(array('n'=>'news'))->join(array('c'=>'categories'),'n.cat_id = c.id')->order('n.created DESC');
 		$pagination = Zend_Paginator::factory($select);
 		$pagination->setCurrentPageNumber($page);
 		$pagination->setItemCountPerPage($limit);
