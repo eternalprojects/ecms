@@ -218,6 +218,7 @@ class Default_Model_NewsMapper
 			->setSummary($row->summary)
 			->setContent($row->content)
 			->setAuthor($row->author)
+			->setCategory($row->name)
 			->setCreated($row->created)
 			->setModified($row->modified)
 			->setViews($row->views)
