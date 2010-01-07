@@ -189,7 +189,7 @@ class Default_Model_NewsMapper
 		$db = $this->getDbTable()->getDefaultAdapter();
 		$db->setFetchMode(Zend_Db::FETCH_OBJ);
 		$select = $db->select()->from(array('n'=>'news'))->join(array('c'=>'categories'),'n.cat_id = c.id')->order('n.created DESC');
-		$pagination = Zend_Paginator::factory($select,$db)
+		$pagination = Zend_Paginator::factory($select,$db);
 		$pagination->setCurrentPageNumber($page);
 		$pagination->setItemCountPerPage($limit);
 		$pagination->setDefaultScrollingStyle($style);
