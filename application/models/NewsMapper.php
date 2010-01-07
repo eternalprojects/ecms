@@ -16,11 +16,7 @@ class Default_Model_NewsMapper
 	 * @var Zend_Db_Table_Abstract
 	 */
 	protected $_dbTable;
-	protected $_catTable;
-
-	public function __construct(){
-		$this->_catTable = new Default_Model_DbTable_Category();
-	}
+	
 	/**
 	 * Specify Zend_Db_Table instance to use for data operations
 	 *
