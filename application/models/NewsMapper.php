@@ -125,7 +125,7 @@ class Default_Model_NewsMapper
 	public function find($id, Default_Model_News $news)
 	{
 		$db = $this->getDbTable()->getDefaultAdapter();
-		$select = $db->select()->from(array('n'=>'news'))->join(array('c'=>'categories'),'n.cat_id = c.id')->where('n.id = ?', $id)->order('n.id DESC')->limit(10);
+		$select = $db->select()->from(array('n'=>'news'))->join(array('c'=>'categories'),'n.cat_id = c.id')->where('n.id = ?', $id)->order('n.id DESC');
 		$row = $db->fetchRow($select,null,Zend_Db::FETCH_OBJ);
 
 		$news->setId($id)
@@ -176,7 +176,7 @@ class Default_Model_NewsMapper
 	public function fetchLatest($limit)
 	{
 		$db = $this->getDbTable()->getDefaultAdapter();
-		$select = $db->select()->from(array('n'=>'news'))->join(array('c'=>'categories'),'n.cat_id = c.id',array('c.name'))->order('n.id DESC')->limit(10);
+		$select = $db->select()->from(array('n'=>'news'))->join(array('c'=>'categories'),'n.cat_id = c.id',array('c.name'))->order('n.id DESC')->limit($limit);
 		$resultSet = $db->fetchAll($select,null,Zend_Db::FETCH_OBJ);
 		$entries   = array();
 		foreach ($resultSet as $row) {
@@ -204,7 +204,7 @@ class Default_Model_NewsMapper
 	public function fetchPopular($limit)
 	{
 		$db = $this->getDbTable()->getDefaultAdapter();
-		$select = $db->select()->from(array('n'=>'news'))->join(array('c'=>'categories'),'n.cat_id = c.id')->order('n.views DESC')->limit(10);
+		$select = $db->select()->from(array('n'=>'news'))->join(array('c'=>'categories'),'n.cat_id = c.id')->order('n.views DESC')->limit($limit);
 		$resultSet = $db->fetchAll($select,null,Zend_Db::FETCH_OBJ);
 		$entries   = array();
 		foreach ($resultSet as $row) {
