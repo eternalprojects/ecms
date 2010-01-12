@@ -111,7 +111,7 @@ class Default_Model_NewsMapper
 	 * @return void
 	 */
 	public function addView(Default_Model_News $news){
-		$data = array('views'=>$news->getViews() + 1);
+		$data = array('views'=>(int)$news->getViews() + 1);
 		$this->getDbTable()->update($data, array('id = ?' => $news->getId()));
 	}
 
@@ -128,7 +128,7 @@ class Default_Model_NewsMapper
 		$select = $db->select()->from(array('n'=>'news'))->join(array('c'=>'categories'),'n.cat_id = c.id')->where('n.id = ?', $id)->order('n.id DESC')->limit(10);
 		$row = $db->fetchRow($select,null,Zend_Db::FETCH_OBJ);
 
-		$news->setId($row->id)
+		$news->setId($id)
 		->setTitle($row->title)
 		->setSummary($row->summary)
 		->setContent($row->content)
