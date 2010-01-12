@@ -90,10 +90,12 @@ class Default_Model_NewsMapperTest extends PHPUnit_Framework_TestCase {
 	 * Tests Default_Model_NewsMapper->addView()
 	 */
 	public function testAddView() {
-		// TODO Auto-generated Default_Model_NewsMapperTest->testFetchAll()
-		$this->markTestIncomplete ( "fetchAll test not implemented" );
-		$this->Default_Model_NewsMapper->addView(/* parameters */);
-	
+		$news = new Default_Model_News();
+		$this->Default_Model_NewsMapper->find(26, $news);
+		$this->Default_Model_NewsMapper->addView($news);
+		$newsT = new Default_Model_News();
+		$this->Default_Model_NewsMapper->find(26, $newsT);
+		$this->assertEquals('1', (int)$newsT->getViews());
 	}
 	
 	/**
@@ -101,9 +103,7 @@ class Default_Model_NewsMapperTest extends PHPUnit_Framework_TestCase {
 	 */
 	public function testFind() {
 		$news = new Default_Model_News();
-		
 		$this->Default_Model_NewsMapper->find(24, $news);
-		
 		$this->assertNotNull($news->getAuthor());
 	
 	}
