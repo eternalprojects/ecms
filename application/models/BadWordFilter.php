@@ -57,8 +57,7 @@ class Default_Model_BadWordFilter
 	}
 	private function _doFilter ($var)
 	{
-		if (is_string($words))
-		$this->strings = array($this->strings);
+		if (is_string($var))
 		foreach ($this->strings as $word) {
 			$word = trim($word);
 			$replacement = '';
