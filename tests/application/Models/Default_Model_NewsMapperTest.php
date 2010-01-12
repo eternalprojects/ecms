@@ -38,10 +38,9 @@ class Default_Model_NewsMapperTest extends PHPUnit_Framework_TestCase {
 	protected function tearDown() {
 		// TODO Auto-generated Default_Model_NewsMapperTest::tearDown()
 		
-
-		$this->Default_Model_NewsMapper = null;
-		
 		parent::tearDown ();
+		//$this->Default_Model_NewsMapper->getDbTable()->getDefaultAdapter()->query('truncate news');
+		$this->Default_Model_NewsMapper = null;
 	}
 	
 	/**
@@ -82,7 +81,7 @@ class Default_Model_NewsMapperTest extends PHPUnit_Framework_TestCase {
 		$news = new Default_Model_News($data);
 		$this->Default_Model_NewsMapper->save($news);
 		$db = new Default_Model_DbTable_News();
-		$this->assertNotNull($db->find(24));
+		$this->assertNotNull($db->find(1));
 	
 	}
 	
@@ -91,11 +90,11 @@ class Default_Model_NewsMapperTest extends PHPUnit_Framework_TestCase {
 	 */
 	public function testAddView() {
 		$news = new Default_Model_News();
-		$this->Default_Model_NewsMapper->find(26, $news);
+		$this->Default_Model_NewsMapper->find(1, $news);
 		$this->Default_Model_NewsMapper->addView($news);
 		$newsT = new Default_Model_News();
-		$this->Default_Model_NewsMapper->find(26, $newsT);
-		$this->assertEquals('1', (int)$newsT->getViews());
+		$this->Default_Model_NewsMapper->find(1, $newsT);
+		$this->assertGreaterThanOrEqual(1, (int)$newsT->getViews());
 	}
 	
 	/**
@@ -103,7 +102,7 @@ class Default_Model_NewsMapperTest extends PHPUnit_Framework_TestCase {
 	 */
 	public function testFind() {
 		$news = new Default_Model_News();
-		$this->Default_Model_NewsMapper->find(24, $news);
+		$this->Default_Model_NewsMapper->find(1, $news);
 		$this->assertNotNull($news->getAuthor());
 	
 	}
@@ -112,10 +111,9 @@ class Default_Model_NewsMapperTest extends PHPUnit_Framework_TestCase {
 	 * Tests Default_Model_NewsMapper->fetchAll()
 	 */
 	public function testFetchAll() {
-		// TODO Auto-generated Default_Model_NewsMapperTest->testFetchAll()
-		$this->markTestIncomplete ( "fetchAll test not implemented" );
-		
-		$this->Default_Model_NewsMapper->fetchAll(/* parameters */);
+
+		$entries = $this->Default_Model_NewsMapper->fetchAll(/* parameters */);
+		$this->assertType('array', $entries);
 	
 	}
 	
@@ -123,10 +121,10 @@ class Default_Model_NewsMapperTest extends PHPUnit_Framework_TestCase {
 	 * Tests Default_Model_NewsMapper->fetchLatest()
 	 */
 	public function testFetchLatest() {
-		// TODO Auto-generated Default_Model_NewsMapperTest->testFetchLatest()
-		$this->markTestIncomplete ( "fetchLatest test not implemented" );
-		
-		$this->Default_Model_NewsMapper->fetchLatest(/* parameters */);
+			
+		$entries = $this->Default_Model_NewsMapper->fetchLatest(10);
+		$this->assertType('array', $entries);
+		$this->assertLessThanOrEqual(10, count($entries));
 	
 	}
 	
@@ -134,21 +132,20 @@ class Default_Model_NewsMapperTest extends PHPUnit_Framework_TestCase {
 	 * Tests Default_Model_NewsMapper->fetchPopular()
 	 */
 	public function testFetchPopular() {
-		// TODO Auto-generated Default_Model_NewsMapperTest->testFetchPopular()
-		$this->markTestIncomplete ( "fetchPopular test not implemented" );
 		
-		$this->Default_Model_NewsMapper->fetchPopular(/* parameters */);
-	
+		$entries = $this->Default_Model_NewsMapper->fetchPopular(1);
+		$this->assertType('array', $entries);
+		$this->assertLessThanOrEqual(1, count($entries));	
 	}
 	
 	/**
 	 * Tests Default_Model_NewsMapper->fetchPage()
 	 */
 	public function testFetchPage() {
-		// TODO Auto-generated Default_Model_NewsMapperTest->testFetchPage()
-		$this->markTestIncomplete ( "fetchPage test not implemented" );
-		
-		$this->Default_Model_NewsMapper->fetchPage(/* parameters */);
+				
+		$page = $this->Default_Model_NewsMapper->fetchPage(1,10,'scrolling');
+		$this->assertType('object', $page);
+		$this->assertTrue($page instanceof Zend_Paginator, $page);
 	
 	}
 	
