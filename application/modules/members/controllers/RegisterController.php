@@ -56,7 +56,7 @@ class Members_RegisterController extends eCMS_Controller_Action
 					In order to complete you registration you just need to activate your account.  You can either click on or copy and paste the following URL into your browser.
 
 					http://'.$_SERVER['HTTP_HOST'].'/members/account/activate/mid/'.$id.'/pid/'.md5($form->getValue('password')));
-						$mail->setBodyHtml('<p>Thank you for registering with '.$settings->site->name.'.<br><br>In order to complete your registration you need to activate your account.  <a href="http://'.$_SERVER['HTTP_HOST'].'/members/account/activate/mid/'.$id.'/pid/'.$dbPassword.'">Activate Now</a>');
+						$mail->setBodyHtml('<p>Thank you for registering with '.$settings->site->name.'.<br><br>In order to complete your registration you need to activate your account.  <a href="http://'.$_SERVER['HTTP_HOST'].'/members/account/activate/mid/'.$id.'/pid/'.md5($form->getValue('password')).'">Activate Now</a>');
 						$mail->setFrom('no-reply@'.$_SERVER['HTTP_HOST'], $settings->site->name);
 						$mail->addTo($form->getValue('email'), $form->getValue('fname').' '.$form->getValue('lname'));
 						$mail->setSubject('Thank you for Registering');
