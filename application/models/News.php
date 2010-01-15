@@ -272,4 +272,8 @@ class Default_Model_News
 	public function fetchAllNews($page, $limit, $style = 'elastic'){
 	    return $this->getMapper()->fetchAllNews($page, $limit, $style);
 	}
+	
+	public function fetchNewsByCategory($category, $page, $limit, $style = 'elastic'){
+		return $this->getMapper()->fetchNewsByCategory($category, $page, $limit, $style);
+	}
 }
