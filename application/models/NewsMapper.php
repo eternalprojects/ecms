@@ -204,7 +204,7 @@ class Default_Model_NewsMapper
 	public function fetchPopular($limit)
 	{
 		$db = $this->getDbTable()->getDefaultAdapter();
-		$select = $db->select()->from(array('n'=>'news'))->join(array('c'=>'categories'),'n.cat_id = c.id')->order('n.views DESC')->limit($limit);
+		$select = $db->select()->from(array('n'=>'news'))->join(array('c'=>'categories'),'n.cat_id = c.id',array('c.name'))->order('n.id DESC')->limit($limit);
 		$resultSet = $db->fetchAll($select,null,Zend_Db::FETCH_OBJ);
 		$entries   = array();
 		foreach ($resultSet as $row) {
@@ -235,7 +235,7 @@ class Default_Model_NewsMapper
 	{
 		$db = $this->getDbTable()->getDefaultAdapter();
 		$db->setFetchMode(Zend_Db::FETCH_OBJ);
-		$select = $db->select()->from(array('n'=>'news'))->join(array('c'=>'categories'),'n.cat_id = c.id')->order('n.created DESC');
+		$select = $db->select()->from(array('n'=>'news'))->join(array('c'=>'categories'),'n.cat_id = c.id',array('c.name'))->order('n.id DESC');
 		$pagination = Zend_Paginator::factory($select);
 		$pagination->setCurrentPageNumber($page);
 		$pagination->setItemCountPerPage($limit);
@@ -257,7 +257,7 @@ class Default_Model_NewsMapper
 	{
 		$db = $this->getDbTable()->getDefaultAdapter();
 		$db->setFetchMode(Zend_Db::FETCH_OBJ);
-		$select = $db->select()->from(array('n'=>'news'))->join(array('c'=>'categories'),'n.cat_id = c.id');
+		$select = $db->select()->from(array('n'=>'news'))->join(array('c'=>'categories'),'n.cat_id = c.id',array('c.name'))->order('n.id DESC');
 		$select->where('n.author = ?', $author)
 		->order('n.created DESC');
 		$pagination = Zend_Paginator::factory($select);
@@ -289,7 +289,7 @@ class Default_Model_NewsMapper
 	public function fetchAllNews($page, $limit, $style){
 		$db = $this->getDbTable()->getDefaultAdapter();
 		$db->setFetchMode(Zend_Db::FETCH_OBJ);
-		$select = $db->select()->from(array('n'=>'news'))->join(array('c'=>'categories'),'n.cat_id = c.id')->order('n.created DESC');
+		$select = $db->select()->from(array('n'=>'news'))->join(array('c'=>'categories'),'n.cat_id = c.id',array('c.name'))->order('n.id DESC');
 		$pagination = Zend_Paginator::factory($select);
 		$pagination->setCurrentPageNumber($page);
 		$pagination->setItemCountPerPage($limit);
@@ -297,4 +297,6 @@ class Default_Model_NewsMapper
 		Zend_View_Helper_PaginationControl::setDefaultViewPartial('pagination.phtml');
 		return $pagination;
 	}
+	
+	
 }
