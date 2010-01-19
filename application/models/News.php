@@ -1,28 +1,94 @@
 <?php
-
 /**
- * Guestbook model
+ * Contains News Mapper class
+ *
+ * License:
+ *
+ * Copyright (c) 2009, JPL Web Solutions,
+ *                     Jesse Lesperance <jesse@jplesperance.com>
+ *
+ * This file is part of EternalCMS.
+ *
+ * EternalCMS is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published
+ * by the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.  EternalCMS is distributed in the hope
+ * that it will be useful, but WITHOUT ANY WARRANTY; without even the
+ * implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ *
+ * See the GNU General Public License for more details. You should have received
+ * a copy of the GNU General Public License along with EternalCMS.
+ *
+ * If not, see <http://www.gnu.org/licenses/>.
+ *
+ * @package News
+ * @subpackage Model
+ * @author Jesse Lesperance <jesse@jplesperance.com>
+ * @copyright 2010 JPL Web Solutions
+ * @license http://www.gnu.org/licenses/gpl-3.0-standalone.html GNU General Public License
+ *
+ */
+/**
+ * News model
  *
  * Utilizes the Data Mapper pattern to persist data. Represents a single
- * guestbook entry.
+ * news entry.
  *
- * @uses       Default_Model_GuestbookMapper
- * @package    QuickStart
+ * @uses       Default_Model_NewsMapper
+ * @package    News
  * @subpackage Model
  */
 class Default_Model_News
 {
+	/**
+	 * 
+	 */
 	protected $_category;
+	/**
+	 * 
+	 * @var unknown_type
+	 */
 	protected $_views;
+	/**
+	 * 
+	 * @var unknown_type
+	 */
 	protected $_modified;
+	/**
+	 * 
+	 * @var unknown_type
+	 */
 	protected $_created;
+	/**
+	 * 
+	 * @var unknown_type
+	 */
 	protected $_author;
+	/**
+	 * 
+	 * @var unknown_type
+	 */
 	protected $_content;
+	/**
+	 * 
+	 * @var unknown_type
+	 */
 	protected $_summary;
+	/**
+	 * 
+	 * @var unknown_type
+	 */
 	protected $_title;
+	/**
+	 * 
+	 * @var unknown_type
+	 */
 	protected $_id;
+	/**
+	 * 
+	 * @var unknown_type
+	 */
 	protected $_mapper;
-
 	/**
 	 * Constructor
 	 *
@@ -84,16 +150,24 @@ class Default_Model_News
 		}
 		return $this;
 	}
-
+	/**
+	 * 
+	 * @param unknown_type $category
+	 */
 	public function setCategory($category){
 		$this->_category = $category;
 		return $this;
 	}
-
+	/**
+	 * 
+	 */
 	public function getCategory(){
 		return $this->_category;
 	}
-
+	/**
+	 * 
+	 * @param unknown_type $views
+	 */
 	public function setViews($views)
 	{
 		$this->_views = $views;
