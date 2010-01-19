@@ -53,7 +53,7 @@ class Admin_CategoriesController extends eCMS_Controller_Action {
 	public function indexAction() {
 		$this->view->title = "Site Administration: Manage Categories";
 		$categories = new Admin_Model_DbTable_Categories();
-		$select = $categories->select()->order('parent_id ASC, id ASC');
+		$select = $categories->select()->order(array('parent_id ASC','id_ASC'));
 		$result = $categories->fetchAll($select);
 		$this->view->categories = $result->toArray();
 	}
