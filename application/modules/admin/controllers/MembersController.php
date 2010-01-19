@@ -40,9 +40,7 @@ class Admin_MembersController extends eCMS_Controller_Action
     public function init()
     {
         parent::init();
-		$this->settings = Zend_Registry::get('settings');
-		$this->view->footerTitle = $this->settings->footer->title;
-		$this->view->footerLink = $this->settings->footer->link;
+        $this->settings = Zend_Registry::get('settings');
         $this->members = new Members_Model_Members();
     }
 

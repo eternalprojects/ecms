@@ -39,12 +39,23 @@
  */
 class Admin_CategoryController extends eCMS_Controller_Action {
 	/**
+	 * Initialize vars to be used class wide
+	 * 
+	 * @see eCMS_Controller_Action::init()
+	 */
+	public function init(){
+		parent::init();
+		
+	}
+	/**
 	 * 
 	 */
 	public function indexAction() {
-		$this->view->footerTitle = $this->settings->footer->title;
-		$this->view->footerLink = $this->settings->footer->link;
-		$this->category = new Admin_Model_DbTable_Category();
+		$this->view->title = "Site Administration: Manage Categories";
+		$categories = new Admin_Model_DbTable_Categories();
+		$select = $categories->select()->order('parent_id ASC, id ASC');
+		$result = $categories->fetchAll($select);
+		$this->view->categories = $result->toArray();
 	}
 	/**
 	 * 
