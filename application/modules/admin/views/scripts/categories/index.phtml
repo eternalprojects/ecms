@@ -1,2 +1,10 @@
-<?php
-print_r($this->categories);
+<?php 
+for($i=0;$i<count($this->categories);$i++):
+	$cat = $this->categories[$i];
+	if($cat['id'] == $cat['parent_id']):
+		echo "<strong>".$cat['name']."</strong><br />";
+	else:
+		echo "&nbsp;&nbsp;&nbsp;- ".$cat['name']."<br />";
+	endif;
+endfor;
+?>
