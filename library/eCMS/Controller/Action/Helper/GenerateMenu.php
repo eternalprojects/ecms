@@ -54,6 +54,7 @@ class eCMS_Controller_Action_Helper_GenerateMenu extends Zend_Controller_Action_
             $menu['admin'][] = array('uri'=>'/admin/settings','label'=>'Settings');
             $menu['admin'][] = array('uri'=>'/admin/members','label'=>'Members');
             $menu['admin'][] = array('uri'=>'/admin/news','label'=>'News');
+	    $menu['admin'][] = array('uri'=>'/admin/categories','label'=>'Categories');
         endif;
 
 		return $menu;
