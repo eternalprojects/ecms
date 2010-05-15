@@ -32,7 +32,7 @@ class Members_SubmissionsController extends eCMS_Controller_Action {
 		$paginator = $news->fetchNewsByAuthor($this->view->user->uname, $page);
 		$this->view->news = $paginator->getItemsByPage($page);
 		$this->view->paginator = $paginator;
-
+        
 	}
 
 	public function editAction(){

@@ -1,11 +1,11 @@
 <?php foreach($this->news as $story){ ?>
 <div class="span-18 last newsListing">
 <div class="span-15 newsListTitle"><a
-	href="/view/article/sid/<?php echo $story['id']; ?>"><?php echo $story['title']; ?></a>
+	href="/view/article/sid/<?php echo $story->id; ?>"><?php echo $story->title; ?></a>
 </div>
 <div class="span-2 last newsListAction"><a
-	href="/admin/news/edit/<?php echo $story['id']; ?>">Edit</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a
-	href="/admin/news/delete/<?php echo $story['id']; ?>">Delete</a>
+	href="/members/submissions/edit/sid/<?php echo $story->id; ?>">Edit</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a
+	href="/members/submissions/delete/sid/<?php echo $story->id; ?>">Delete</a>
 </div>
 </div>
 <?php } ?>

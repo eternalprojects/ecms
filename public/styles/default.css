@@ -5,11 +5,13 @@
 .urbangreymenu .headerbar {
 	font: bold 13px Verdana;
 	color: white;
-	
+	background: #999;
 	margin-bottom: 0; /*bottom spacing between header and rest of content*/
 	text-transform: uppercase;
 	padding: 7px 0 7px 0; /*31px is left indentation of header text*/
 	text-align: center;
+	-moz-border-radius: 0 10px 10px 0;
+	-webkit-border-radius: 0 10px 10px 0;
 }
 
 .urbangreymenu ul {
