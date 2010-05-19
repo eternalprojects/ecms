@@ -62,3 +62,15 @@ CREATE TABLE IF NOT EXISTS `categories` (
   `name` varchar(64) NOT NULL,
   PRIMARY KEY (`ID`)
 ) ENGINE=MyISAM DEFAULT CHARSET-latin1 AUTO_INCREMENT=1 ;
+
+CREATE TABLE IF NOT EXISTS `bugs` (
+`id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+`author` varchar(250) DEFAULT NULL,
+`email` varchar(250) DEFAULT NULL,
+`date` int(11) DEFAULT NULL,
+`url` varchar(250) DEFAULT NULL,
+`description` text,
+`priority` varchar(50) DEFAULT NULL,
+`status` varchar(50) DEFAULT NULL,
+PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET-latin1 AUTO_INCREMENT=1 ;

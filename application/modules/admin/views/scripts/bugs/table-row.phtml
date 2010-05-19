@@ -1,0 +1,12 @@
+<tr>
+<pre>
+<?php var_dump($this); ?></pre>
+<td><a href='admin/bugs/edit/id/<?php echo $this->id;?>'>Edit</a> |
+<a href='/admin/bugs/delete/id/<?php echo $this->bugs->getId();?>'>Delete</a></td>
+<td><?php echo date('m/d/y', $this->bugs->getDate()); ?></td>
+<td><?php echo $this->bugs->getPriority(); ?></td>
+<td><?php echo $this->status; ?></td>
+<td><?php echo $this->url; ?></td>
+<td><?php echo $this->author; ?></td>
+<td><?php echo $this->description; ?></td>
+</tr>

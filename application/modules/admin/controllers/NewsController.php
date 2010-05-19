@@ -67,8 +67,8 @@ class Admin_NewsController extends eCMS_Controller_Action
     // This needs to be moved to the News DAO/Mapper
     private function _removeArticle ($sid)
     {
-        $news = new Default_Model_News();
-        $news->find($sid);
-        $news->deleteStory($sid);
+
+        
+        $this->news->deleteStory($sid);
     }
 }

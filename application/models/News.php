@@ -1,6 +1,6 @@
 <?php
 /**
- * Contains News Mapper class
+ * Contains News DAO class
  *
  * License:
  *
@@ -31,10 +31,9 @@
 /**
  * News model
  *
- * Utilizes the Data Mapper pattern to persist data. Represents a single
- * news entry.
+ * This class is a DAO class
  *
- * @uses       Default_Model_NewsMapper
+ * @uses       Default_Model_News
  * @package    News
  * @subpackage Model
  */

@@ -182,7 +182,7 @@
 	text-align: center;
 }
 
-.adminCat{
+.adminCat {
 	text-align: center;
 	font-weight: bold;
 	font-size: 2em;
@@ -200,7 +200,6 @@
 
 .adminList {
 	border-bottom: 1px solid #999;
-	
 }
 
 .adminRight {
@@ -209,7 +208,7 @@
 }
 
 .adminListBot {
-
+	
 }
 
 .adminPageContainer {
@@ -219,4 +218,21 @@
 	border: 1px solid #999;
 	margin-bottom: 5px;
 	background-color: #e9e9e9;
+}
+
+table.spreadsheet {
+	margin: 10px 0;
+	border: #999 1px solid;
+}
+
+table.spreadsheet th {
+	background: #ccc;
+	font-weight: bold;
+	font-size: 12px;
+	padding: 5px 2px;
+}
+
+table.spreadsheet td {
+	border-top: #999 1px solid;
+	padding: 5px 2px;
 }

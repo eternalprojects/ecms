@@ -7,7 +7,7 @@ set_include_path(implode(PATH_SEPARATOR, array(
 realpath(dirname(__FILE__) . '/../library'),
 get_include_path(),
 )));
-
+date_default_timezone_set('America/Los_Angeles');
 // Define path to application directory
 defined('APPLICATION_PATH')
 || define('APPLICATION_PATH', realpath(dirname(__FILE__) . '/../application'));

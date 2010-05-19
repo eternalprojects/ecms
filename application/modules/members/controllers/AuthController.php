@@ -49,6 +49,7 @@ class Members_AuthController extends eCMS_Controller_Action {
 					$data = $authAdapter->getResultRowObject(null, 'password');
 					if($data->active){
 						$auth->getStorage()->write($data);
+						$this->_helper->FlashMessenger("Login Successful");
 						$this->_redirect('/');
 					}else{
 						$this->view->message = "Your account is not activated.  Please check your email for the welcome email from when you registered and follow the directions in that email to activate you account before logging in.";
