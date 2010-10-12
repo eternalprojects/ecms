@@ -45,7 +45,7 @@ class Default_Model_Install
 			`priority` varchar(50) DEFAULT NULL,
 			`status` varchar(50) DEFAULT NULL,
 			PRIMARY KEY (`id`)
-			) ENGINE=MyISAM DEFAULT CHARSET-latin1 AUTO_INCREMENT=1";
+			) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1";
         $db->query($sql5);
     }
 }
