@@ -160,7 +160,7 @@ class Default_Model_NewsMapperTest extends Zend_Test_PHPUnit_ControllerTestCase
     {
 
         $page = $this->Default_Model_NewsMapper->fetchPage(1, 10, 'scrolling');
-        $this->assertInstanceOf('object', $page);
+        $this->assertInstanceOf('Zend_Paginator', $page);
         $this->assertTrue($page instanceof Zend_Paginator, $page);
 
     }
