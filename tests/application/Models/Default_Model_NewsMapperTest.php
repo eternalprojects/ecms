@@ -126,7 +126,7 @@ class Default_Model_NewsMapperTest extends Zend_Test_PHPUnit_ControllerTestCase
     {
 
         $entries = $this->Default_Model_NewsMapper->fetchAll( /* parameters */);
-        $this->assertArrayHasKey('title', $entries);
+        $this->assertGreaterThanOrEqual(1, count($entries));
 
     }
 
@@ -137,7 +137,7 @@ class Default_Model_NewsMapperTest extends Zend_Test_PHPUnit_ControllerTestCase
     {
 
         $entries = $this->Default_Model_NewsMapper->fetchLatest(10);
-        $this->assertArrayHasKey('title', $entries);
+        $this->assertGreaterThanOrEqual(1, count($entries));
         $this->assertLessThanOrEqual(10, count($entries));
 
     }
@@ -149,7 +149,7 @@ class Default_Model_NewsMapperTest extends Zend_Test_PHPUnit_ControllerTestCase
     {
 
         $entries = $this->Default_Model_NewsMapper->fetchPopular(1);
-        $this->assertArrayHasKey('title', $entries);
+        $this->assertGreaterThanOrEqual(1, count($entries));
         $this->assertLessThanOrEqual(1, count($entries));
     }
 
