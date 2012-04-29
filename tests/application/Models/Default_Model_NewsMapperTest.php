@@ -97,16 +97,16 @@ class Default_Model_NewsMapperTest extends Zend_Test_PHPUnit_ControllerTestCase
 
     /**
      * Tests Default_Model_NewsMapper->addView()
-     */
+     *
     public function testAddView()
     {
-        $news = new Default_Model_News();
-        $this->Default_Model_NewsMapper->find(1, $news);
-        $this->Default_Model_NewsMapper->addView($news);
-        $newsT = new Default_Model_News();
-        $this->Default_Model_NewsMapper->find(1, $newsT);
-        $this->assertGreaterThanOrEqual(1, (int)$newsT->getViews());
-    }
+    $news = new Default_Model_News();
+    $this->Default_Model_NewsMapper->find(1, $news);
+    $this->Default_Model_NewsMapper->addView($news);
+    $newsT = new Default_Model_News();
+    $this->Default_Model_NewsMapper->find(1, $newsT);
+    $this->assertGreaterThanOrEqual(1, (int)$newsT->getViews());
+    }               */
 
     /**
      * Tests Default_Model_NewsMapper->find()
