@@ -7,7 +7,7 @@ ob_start();
 /*
  * Set error reporting to the level to which Zend Framework code must comply.
  */
-error_reporting( E_ALL | E_STRICT );
+error_reporting(E_ALL | E_STRICT);
 
 /*
  * Maximize memory limit
@@ -22,17 +22,17 @@ date_default_timezone_set('GMT');
 /*
  * Testing environment
  */
-defined('APPLICATION_PATH') 
+defined('APPLICATION_PATH')
     or define('APPLICATION_PATH', realpath(dirname(__FILE__) . '/../application'));
-define('APPLICATION_ENV', 'production');
+define('APPLICATION_ENV', 'testing');
 
 /*
  * Determine the root, library, tests, and models directories
  */
-$root        = realpath(dirname(__FILE__) . '/../');
-$library     = $root . '/library';
-$tests       = $root . '/tests';
-$models      = $root . '/application/models';
+$root = realpath(dirname(__FILE__) . '/../');
+$library = $root . '/library';
+$tests = $root . '/tests';
+$models = $root . '/application/models';
 $controllers = $root . '/application/controllers';
 
 /*
@@ -59,8 +59,9 @@ Zend_Loader::registerAutoload();
  * in the code coverage report and that all production code source files, even
  * those that are not covered by a test yet, are processed.
  */
-if (defined('TESTS_GENERATE_REPORT') && TESTS_GENERATE_REPORT === true &&
-    version_compare(PHPUnit_Runner_Version::id(), '3.1.6', '>=')) {
+if (defined('TESTS_GENERATE_REPORT') && TESTS_GENERATE_REPORT === true
+    && version_compare(PHPUnit_Runner_Version::id(), '3.1.6', '>=')
+) {
     PHPUnit_Util_Filter::addDirectoryToWhitelist($library);
     PHPUnit_Util_Filter::addDirectoryToWhitelist($models);
     PHPUnit_Util_Filter::addDirectoryToWhitelist($controllers);
