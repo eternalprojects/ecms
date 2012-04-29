@@ -114,7 +114,7 @@ class Default_Model_NewsMapperTest extends Zend_Test_PHPUnit_ControllerTestCase
     public function testFind()
     {
         $news = new Default_Model_News();
-        $this->Default_Model_NewsMapper->find(1, $news);
+        $news = $this->Default_Model_NewsMapper->find(1, $news);
         $this->assertNotNull($news->getAuthor());
 
     }
