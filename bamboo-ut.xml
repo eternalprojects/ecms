@@ -16,11 +16,6 @@
         </exec>
     </target>
 
-    <target name="phpcb">
-        <exec dir="${basedir}" executable="phpcb" failonerror="false">
-            <arg line="--log ${basedir}/build/logs --source ${basedir} --output ${basedir}/build/codebrowser"/>
-        </exec>
-    </target>
 
     <target name="phpunit">
         <exec dir="${basedir}/tests" executable="phpunit" failonerror="true">
@@ -30,4 +25,11 @@
 			--testdox-html ${basedir}/build/logs/dox.html"/>
         </exec>
     </target>
+
+    <target name="phpcb">
+        <exec dir="${basedir}" executable="phpcb" failonerror="false">
+            <arg line="--log ${basedir}/build/logs --source ${basedir} --output ${basedir}/build/codebrowser"/>
+        </exec>
+    </target>
+
 </project>
