@@ -24,15 +24,15 @@ date_default_timezone_set('GMT');
  */
 defined('APPLICATION_PATH')
     or define('APPLICATION_PATH', realpath(dirname(__FILE__) . '/../application'));
-define('APPLICATION_ENV', 'testing');
+defined('APPLICATION_ENV') or define('APPLICATION_ENV', 'testing');
 
 /*
  * Determine the root, library, tests, and models directories
  */
-$root = realpath(dirname(__FILE__) . '/../');
-$library = $root . '/library';
-$tests = $root . '/tests';
-$models = $root . '/application/models';
+$root        = realpath(dirname(__FILE__) . '/../');
+$library     = $root . '/library';
+$tests       = $root . '/tests';
+$models      = $root . '/application/models';
 $controllers = $root . '/application/controllers';
 
 /*
