@@ -45,7 +45,7 @@
                 <include name="**/*.php" />
                 <modified />
             </fileset>
-            <fileset dir="${basedir}/library/eSocial">
+            <fileset dir="${basedir}/library/eCMS">
                 <include name="**/*.php" />
                 <modified />
             </fileset>
