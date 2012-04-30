@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project name="EternalCMS" default="build">
+    <target name="build"
+            depends="prepare,lint,phploc,pdepend,phpmd-ci,phpcs-ci,phpcpd,docblox,phpunit,phpcb"/>
+
+    <target name="build-parallel"
+            depends="prepare,lint,tools-parallel,phpunit,phpcb"/>
+
+    <target name="tools-parallel" description="Run tools in parallel">
+        <parallel threadCount="2">
+            <sequential>
+                <antcall target="pdepend"/>
+                <antcall target="phpmd-ci"/>
+            </sequential>
+            <antcall target="phpcpd"/>
+            <antcall target="phpcs-ci"/>
+            <antcall target="phploc"/>
+            <antcall target="docblox"/>
+        </parallel>
+    </target>
+
+    <target name="clean" description="Cleanup build artifacts">
+        <delete dir="${basedir}/build/api"/>
+        <delete dir="${basedir}/build/code-browser"/>
+        <delete dir="${basedir}/build/coverage"/>
+        <delete dir="${basedir}/build/logs"/>
+        <delete dir="${basedir}/build/pdepend"/>
+    </target>
+
+    <target name="prepare" depends="clean" description="Prepare for build">
+        <mkdir dir="${basedir}/build/api"/>
+        <mkdir dir="${basedir}/build/code-browser"/>
+        <mkdir dir="${basedir}/build/coverage"/>
+        <mkdir dir="${basedir}/build/logs"/>
+        <mkdir dir="${basedir}/build/pdepend"/>
+        <mkdir dir="${basedir}/build/docblox"/>
+    </target>
+
+    <target name="lint">
+        <apply executable="php" failonerror="true">
+            <arg value="-l" />
+
+            <fileset dir="${basedir}/application">
+                <include name="**/*.php" />
+                <modified />
+            </fileset>
+            <fileset dir="${basedir}/library/eSocial">
+                <include name="**/*.php" />
+                <modified />
+            </fileset>
+            <fileset dir="${basedir}/tests">
+                <include name="**/*.php" />
+                <modified />
+            </fileset>
+
+        </apply>
+    </target>
+
+    <target name="phploc" description="Measure project size using PHPLOC">
+        <exec executable="phploc">
+            <arg value="--exclude" />
+            <arg value="${basedir}/library/Zend" />
+            <arg value="--exclude" />
+            <arg value="${basedir}/build" />
+
+            <arg value="--log-csv" />
+            <arg value="${basedir}/build/logs/phploc.csv" />
+            <arg path="${basedir}" />
+        </exec>
+    </target>
+
+    <target name="pdepend" description="Calculate software metrics using PHP_Depend">
+        <exec executable="pdepend">
+            <arg value="--jdepend-xml=${basedir}/build/logs/jdepend.xml" />
+            <arg value="--jdepend-chart=${basedir}/build/pdepend/dependencies.svg" />
+            <arg value="--overview-pyramid=${basedir}/build/pdepend/overview-pyramid.svg" />
+            <arg value="--ignore=${basedir}/library/Zend,${basedir}/tests,${basedir}/build" />
+            <arg value="--suffix=php,phtml" />
+            <arg path="${basedir}" />
+        </exec>
+    </target>
+
+    <target name="phpmd-ci" description="Perform project mess detection using PHPMD creating a log file for the continuous integration server">
+        <exec executable="phpmd">
+            <arg path="${basedir}" />
+            <arg value="xml" />
+            <arg value="naming,design,codesize,unusedcode" />
+            <arg value="--suffixes" />
+            <arg value="php,phtml" />
+            <arg value="--exclude" />
+            <arg value="${basedir}/library/Zend,${basedir}/tests,${basedir}/build" />
+            <arg value="--reportfile" />
+            <arg value="${basedir}/build/logs/pmd.xml" />
+        </exec>
+    </target>
+
+    <target name="phpcs-ci" description="Find coding standard violations using PHP_CodeSniffer creating a log file for the continuous integration server">
+        <exec executable="phpcs" output="/dev/null">
+            <arg value="--report=checkstyle" />
+            <arg value="--report-file=${basedir}/build/logs/checkstyle.xml" />
+            <arg value="--standard=Zend" />
+            <arg value="--extensions=php,phtml" />
+            <arg value="--ignore=${basedir}/library/Zend,${basedir}/tests,${basedir}/build" />
+            <arg path="${basedir}" />
+        </exec>
+    </target>
+
+    <target name="phpcpd" description="Find duplicate code using PHPCPD">
+        <exec executable="phpcpd">
+            <arg value="--log-pmd" />
+            <arg value="${basedir}/build/logs/pmd-cpd.xml" />
+            <arg value="--exclude" />
+            <arg value="${basedir}/library/Zend" />
+            <arg value="--exclude" />
+            <arg value="${basedir}/tests" />
+            <arg value="--exclude" />
+            <arg value="${basedir}/build" />
+            <arg value="--suffixes" />
+            <arg value="php" />
+            <arg path="${basedir}" />
+        </exec>
+    </target>
+
+    <target name="docblox">
+        <exec dir="${basedir}" executable="phpdoc" failonerror="false">
+            <arg value="run" />
+            <arg value="--sourcecode" />
+            <arg value="--template" />
+            <arg value="responsive" />
+            <arg value="-1" />
+            <arg value="${basedir}/tests/*,${basedir}/library/Zend/*,${basedir}/build/*" />
+            <arg value="-e" />
+            <arg value="php" />
+            <arg value="-d" />
+            <arg value="${basedir}/" />
+            <arg value="-t" />
+            <arg value="${basedir}/build/api" />
+        </exec>
+    </target>
+
+    <target name="phpunit" description="Run unit tests with PHPUnit">
+        <exec dir="${basedir}/tests" executable="phpunit" failonerror="true">
+            <arg line="--log-junit ${basedir}/build/logs/phpunit.xml
+                       --coverage-clover ${basedir}/build/logs/clover.xml
+                       --coverage-html ${basedir}/build/coverage" />
+        </exec>
+    </target>
+
+    <target name="phpcb" description="Aggregate tool output with PHP_CodeBrowser">
+        <exec executable="phpcb">
+            <arg value="--log" />
+            <arg path="${basedir}/build/logs" />
+            <arg value="--source" />
+            <arg path="${basedir}" />
+            <arg value="-e" />
+            <arg path="${basedir}/library/Zend" />
+            <arg value="-e" />
+            <arg path="${basedir}/build" />
+            <arg value="--output" />
+            <arg path="${basedir}/build/code-browser" />
+        </exec>
+    </target>
+</project>
