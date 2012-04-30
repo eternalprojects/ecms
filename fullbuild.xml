@@ -128,7 +128,7 @@
             <arg value="--sourcecode" />
             <arg value="--template" />
             <arg value="responsive" />
-            <arg value="-1" />
+            <arg value="-i" />
             <arg value="${basedir}/tests/*,${basedir}/library/Zend/*,${basedir}/build/*" />
             <arg value="-e" />
             <arg value="php" />
