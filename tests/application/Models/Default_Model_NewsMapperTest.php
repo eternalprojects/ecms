@@ -4,10 +4,12 @@ require_once dirname(__FILE__) . '/../../TestHelper.php';
 require_once 'PHPUnit/Framework/TestCase.php';
 require_once 'NewsMapper.php';
 require_once 'DbTable/News.php';
+
 /**
+ *
  * Default_Model_NewsMapper test case.
  */
-class Default_Model_NewsMapperTest extends Zend_Test_PHPUnit_ControllerTestCase
+class Default_Model_NewsMapperTest extends PHPUnit_Framework_TestCase
 {
     public $bootstrap = 'application/Bootstrap.php';
     /**
@@ -66,6 +68,15 @@ class Default_Model_NewsMapperTest extends Zend_Test_PHPUnit_ControllerTestCase
         $this->Default_Model_NewsMapper->setDbTable('Default_Model_DbTable_News');
         $dbTable = $this->Default_Model_NewsMapper->getDbTable();
         $this->assertTrue($dbTable instanceof Zend_Db_Table_Abstract);
+    }
+
+    public function testSetDbTablewithBadName()
+    {
+        try {
+            $this->Default_Model_NewsMapper->setDbTable('Anything');
+        } catch (Exception $e) {
+            $this->assertEquals('Invalid table data gateway provided', $e->getMessage());
+        }
     }
 
     /**

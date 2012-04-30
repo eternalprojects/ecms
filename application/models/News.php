@@ -21,11 +21,11 @@
  *
  * If not, see <http://www.gnu.org/licenses/>.
  *
- * @package News
+ * @package    News
  * @subpackage Model
- * @author Jesse Lesperance <jesse@jplesperance.com>
- * @copyright 2010 JPL Web Solutions
- * @license http://www.gnu.org/licenses/gpl-3.0-standalone.html GNU General Public License
+ * @author     Jesse Lesperance <jesse@jplesperance.com>
+ * @copyright  2009-2012 JPL Web Solutions
+ * @license    http://www.gnu.org/licenses/gpl-3.0-standalone.html GNU General Public License
  *
  */
 /**
@@ -36,317 +36,358 @@
  * @uses       Default_Model_News
  * @package    News
  * @subpackage Model
+ * @since      v0.2
  */
 class Default_Model_News
 {
-	/**
-	 * 
-	 */
-	protected $_category;
-	/**
-	 * 
-	 * @var unknown_type
-	 */
-	protected $_views;
-	/**
-	 * 
-	 * @var unknown_type
-	 */
-	protected $_modified;
-	/**
-	 * 
-	 * @var unknown_type
-	 */
-	protected $_created;
-	/**
-	 * 
-	 * @var unknown_type
-	 */
-	protected $_author;
-	/**
-	 * 
-	 * @var unknown_type
-	 */
-	protected $_content;
-	/**
-	 * 
-	 * @var unknown_type
-	 */
-	protected $_summary;
-	/**
-	 * 
-	 * @var unknown_type
-	 */
-	protected $_title;
-	/**
-	 * 
-	 * @var unknown_type
-	 */
-	protected $_id;
-	/**
-	 * 
-	 * @var unknown_type
-	 */
-	protected $_mapper;
-	/**
-	 * Constructor
-	 *
-	 * @param  array|null $options
-	 * @return void
-	 */
-	public function __construct(array $options = null)
-	{
-		if (is_array($options)) {
-			$this->setOptions($options);
-		}
-	}
+    /**
+     * @var string
+     */
+    protected $_category;
+    /**
+     *
+     * @var int
+     */
+    protected $_views = 0;
+    /**
+     *
+     * @var string
+     */
+    protected $_modified;
+    /**
+     *
+     * @var string
+     */
+    protected $_created;
+    /**
+     *
+     * @var string
+     */
+    protected $_author;
+    /**
+     *
+     * @var string
+     */
+    protected $_content;
+    /**
+     *
+     * @var string
+     */
+    protected $_summary;
+    /**
+     *
+     * @var string
+     */
+    protected $_title;
+    /**
+     *
+     * @var int
+     */
+    protected $_id = 0;
+    /**
+     *
+     * @var Default_Model_NewsMapper
+     */
+    protected $_mapper;
 
-	/**
-	 * Overloading: allow property access
-	 *
-	 * @param  string $name
-	 * @param  mixed $value
-	 * @return void
-	 */
-	public function __set($name, $value)
-	{
-		$method = 'set' . $name;
-		if ('mapper' == $name || !method_exists($this, $method)) {
-			throw Exception('Invalid property specified');
-		}
-		$this->$method($value);
-	}
+    /**
+     * Constructor
+     *
+     * @param  array|null $options
+     *
+     * @return void
+     */
+    public function __construct(array $options = null)
+    {
+        if (is_array($options)) {
+            $this->setOptions($options);
+        }
+        $this->_mapper = new Default_Model_NewsMapper();
+    }
 
-	/**
-	 * Overloading: allow property access
-	 *
-	 * @param  string $name
-	 * @return mixed
-	 */
-	public function __get($name)
-	{
-		$method = 'get' . $name;
-		if ('mapper' == $name || !method_exists($this, $method)) {
-			throw new Exception('Invalid property specified');
-		}
-		return $this->$method();
-	}
+    /**
+     * Overloading: allow property access
+     *
+     * @param  string $name
+     * @param  mixed  $value
+     *
+     * @return void
+     */
+    public function __set($name, $value)
+    {
+        $method = 'set' . $name;
+        if ('mapper' == $name || !method_exists($this, $method)) {
+            throw Exception('Invalid property specified');
+        }
+        $this->$method($value);
+    }
 
-	/**
-	 * Set object state
-	 *
-	 * @param  array $options
-	 * @return Default_Model_Guestbook
-	 */
-	public function setOptions(array $options)
-	{
-		$methods = get_class_methods($this);
-		foreach ($options as $key => $value) {
-			$method = 'set' . ucfirst($key);
-			if (in_array($method, $methods)) {
-				$this->$method($value);
-			}
-		}
-		return $this;
-	}
-	/**
-	 * 
-	 * @param unknown_type $category
-	 */
-	public function setCategory($category){
-		$this->_category = $category;
-		return $this;
-	}
-	/**
-	 * 
-	 */
-	public function getCategory(){
-		return $this->_category;
-	}
-	/**
-	 * 
-	 * @param unknown_type $views
-	 */
-	public function setViews($views)
-	{
-		$this->_views = $views;
-		return $this;
-	}
+    /**
+     * Overloading: allow property access
+     *
+     * @param  string $name
+     *
+     * @return mixed
+     */
+    public function __get($name)
+    {
+        $method = 'get' . $name;
+        if ('mapper' == $name || !method_exists($this, $method)) {
+            throw new Exception('Invalid property specified');
+        }
+        return $this->$method();
+    }
 
-	public function getViews()
-	{
-		return $this->_views;
-	}
+    /**
+     * Set object state
+     *
+     * @param  array $options
+     *
+     * @return Default_Model_News
+     */
+    public function setOptions(array $options)
+    {
+        $methods = get_class_methods($this);
+        foreach ($options as $key => $value) {
+            $method = 'set' . ucfirst($key);
+            if (in_array($method, $methods)) {
+                $this->$method($value);
+            }
+        }
+        return $this;
+    }
 
-	public function setModified($ts)
-	{
-		$this->_modified = $ts;
-		return $this;
-	}
+    /**
+     *
+     * @param string $category
+     *
+     * @return void
+     */
+    public function setCategory($category)
+    {
+        $this->_category = $category;
+    }
 
-	public function getModified()
-	{
-		return $this->_modified;
-	}
+    /**
+     * @return string
+     */
+    public function getCategory()
+    {
+        return $this->_category;
+    }
 
-	public function setCreated($ts)
-	{
-		$this->_created = $ts;
-		return $this;
-	}
+    /**
+     *
+     * @param int $views
+     *
+     * @return void
+     */
+    public function setViews($views)
+    {
+        $this->_views = $views;
 
-	public function getCreated()
-	{
-		return $this->_created;
-	}
+    }
 
-	public function setAuthor($author)
-	{
-		$this->_author = $author;
-		return $this;
-	}
+    /**
+     * @return int
+     */
+    public function getViews()
+    {
+        return $this->_views;
+    }
 
-	public function getAuthor()
-	{
-		return $this->_author;
-	}
+    /**
+     * @param string $ts
+     *
+     * @return void
+     */
+    public function setModified($ts)
+    {
+        $this->_modified = $ts;
+    }
 
-	public function setContent($content)
-	{
-		$this->_content = $content;
-		return $this;
-	}
+    /**
+     * @return string
+     */
+    public function getModified()
+    {
+        return $this->_modified;
+    }
 
-	public function getContent()
-	{
-		return $this->_content;
-	}
+    /**
+     * @param string $ts
+     *
+     * @return void
+     */
+    public function setCreated($ts)
+    {
+        $this->_created = $ts;
+    }
 
-	public function setSummary($summary)
-	{
-		$this->_summary = $summary;
-		return $this;
-	}
+    /**
+     * @return string
+     */
+    public function getCreated()
+    {
+        return $this->_created;
+    }
 
-	public function getSummary()
-	{
-		return $this->_summary;
-	}
+    public function setAuthor($author)
+    {
+        $this->_author = $author;
+    }
 
-	public function setTitle($title)
-	{
-		$this->_title = $title;
-		return $this;
-	}
+    public function getAuthor()
+    {
+        return $this->_author;
+    }
 
-	public function getTitle()
-	{
-		return $this->_title;
-	}
+    public function setContent($content)
+    {
+        $this->_content = $content;
+        return $this;
+    }
 
-	public function setid($id)
-	{
-		$this->_id = $id;
-		return $this;
-	}
+    public function getContent()
+    {
+        return $this->_content;
+    }
 
-	public function getId()
-	{
-		return $this->_id;
-	}
+    public function setSummary($summary)
+    {
+        $this->_summary = $summary;
+    }
 
-	/**
-	 * Set data mapper
-	 *
-	 * @param  mixed $mapper
-	 * @return Default_Model_Guestbook
-	 */
-	public function setMapper($mapper)
-	{
-		$this->_mapper = $mapper;
-		return $this;
-	}
+    public function getSummary()
+    {
+        return $this->_summary;
+    }
 
-	/**
-	 * Get data mapper
-	 *
-	 * Lazy loads Default_Model_GuestbookMapper instance if no mapper registered
-	 *
-	 * @return Default_Model_GuestbookMapper
-	 */
-	public function getMapper()
-	{
-		if (null === $this->_mapper) {
-			$this->setMapper(new Default_Model_NewsMapper());
-		}
-		return $this->_mapper;
-	}
+    public function setTitle($title)
+    {
+        $this->_title = $title;
+    }
 
-	/**
-	 * Save the current entry
-	 *
-	 * @return void
-	 */
-	public function save()
-	{
-		$this->getMapper()->save($this);
-	}
+    public function getTitle()
+    {
+        return $this->_title;
+    }
 
-	public function addView()
-	{
-		$this->getMapper()->addView($this);
-	}
-	/**
-	 * Find an entry
-	 *
-	 * Resets entry state if matching id found.
-	 *
-	 * @param  int $id
-	 * @return Default_Model_Guestbook
-	 */
-	public function find($id)
-	{
-		$this->getMapper()->find($id, $this);
-	}
+    public function setid($id)
+    {
+        $this->_id = $id;
+    }
 
-	/**
-	 * Fetch all entries
-	 *
-	 * @return array
-	 */
-	public function fetchAll()
-	{
-		return $this->getMapper()->fetchAll();
-	}
+    public function getId()
+    {
+        return $this->_id;
+    }
 
-	public function fetchLatest($limit = 10)
-	{
-		return $this->getMapper()->fetchLatest($limit);
-	}
+    /**
+     * Set data mapper
+     *
+     * @param  mixed $mapper
+     *
+     * @return Default_Model_Guestbook
+     */
+    public function setMapper($mapper)
+    {
+        $this->_mapper = $mapper;
+        return $this;
+    }
 
-	public function fetchPopular($limit = 10)
-	{
-		return $this->getMapper()->fetchPopular($limit);
-	}
+    /**
+     * Get data mapper
+     *
+     * Lazy loads Default_Model_GuestbookMapper instance if no mapper registered
+     *
+     * @return Default_Model_GuestbookMapper
+     */
+    public function getMapper()
+    {
+        if (null === $this->_mapper) {
+            $this->setMapper(new Default_Model_NewsMapper());
+        }
+        return $this->_mapper;
+    }
 
-	public function fetchPage($page = 1, $limit = 10, $style = 'elastic')
-	{
-		return $this->getMapper()->fetchPage($page, $limit, $style);
-	}
+    /**
+     * Save the current entry
+     *
+     * @return void
+     */
+    public function save()
+    {
+        $this->_mapper->save($this);
+    }
 
-	public function fetchNewsByAuthor($author, $page = 1, $limit = 10, $style = 'elastic'){
-		return $this->getMapper()->fetchNewsByAuthor($author, $page, $limit, $style);
-	}
+    public function incrementViews()
+    {
+        $this->_views++;
+        $this->_mapper->save($this);
+    }
 
-	public function deleteStory($id){
-		$this->getMapper()->deleteStory($id);
-	}
-	
-	public function fetchAllNews($page, $limit, $style = 'elastic'){
-	    return $this->getMapper()->fetchAllNews($page, $limit, $style);
-	}
-	
-	public function fetchNewsByCategory($category, $page, $limit, $style = 'elastic'){
-		return $this->getMapper()->fetchNewsByCategory($category, $page, $limit, $style);
-	}
+    /**
+     * Find an entry
+     *
+     * Resets entry state if matching id found.
+     *
+     * @param  int $id
+     *
+     * @return Default_Model_Guestbook
+     */
+    public function find($id)
+    {
+        return $this->getMapper()->find($id, $this);
+    }
+
+    /**
+     * Fetch all entries
+     *
+     * @return array
+     */
+    public function fetchAll()
+    {
+        return $this->_mapper->fetchMany();
+    }
+
+    public function fetchLatest($limit = 10)
+    {
+        return $this->_mapper->fetchMany($limit, 0, 'created');
+    }
+
+    public function fetchPopular($limit = 10)
+    {
+        return $this->_mapper->fetchMany($limit, 0, 'views');
+    }
+
+    public function fetchAllNews($page = 1, $limit = 10, $style = 'elastic')
+    {
+        $pag = $this->getMapper()->fetchNewsPage($page, $limit);
+        $pag->setDefaultScrollingStyle($style);
+        return $pag;
+    }
+
+    public function fetchNewsByAuthor($author, $page = 1, $limit = 10, $style = 'elastic')
+    {
+        $pag = $this->getMapper()->fetchNewsPage($page, $limit, 'author', $author);
+        $pag->setDefaultScrollingStyle($style);
+        return $pag;
+    }
+
+    public function deleteStory($id)
+    {
+        $this->getMapper()->delete($id);
+    }
+
+    public function fetchNewsByCategory($category, $page, $limit, $style = 'elastic')
+    {
+        $pag = $this->getMapper()->fetchNewsPage($page, $limit, 'category', $category);
+        $pag->setDefaultScrollingStyle($style);
+        return $pag;
+    }
+
+
 }
+
+

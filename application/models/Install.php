@@ -10,7 +10,6 @@ class Default_Model_Install
 			  `summary` varchar(255) NOT NULL,
 			  `content` longtext NOT NULL,
 			  `author` varchar(128) NOT NULL,
-
 			  `created` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
 			  `modified` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
 			  `views` int(11) NOT NULL,

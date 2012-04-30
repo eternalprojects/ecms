@@ -4,8 +4,8 @@
  *
  * License:
  *
- * Copyright (c) 2009, JPL Web Solutions,
- *                     Jesse Lesperance <jesse@jplesperance.com>
+ * Copyright (c) 2009-2012, JPL Web Solutions,
+ *                     Jesse P Lesperance <jesse@jplesperance.me>
  *
  * This file is part of EternalCMS.
  *
@@ -23,8 +23,8 @@
  *
  * @package    News
  * @subpackage Model
- * @author     Jesse Lesperance <jesse@jplesperance.com>
- * @copyright  2010 JPL Web Solutions
+ * @author     Jesse P Lesperance <jesse@jplesperance.me>
+ * @copyright  2009-2012 JPL Web Solutions
  * @license    http://www.gnu.org/licenses/gpl-3.0-standalone.html GNU General Public License
  *
  */
@@ -37,6 +37,7 @@
  * @uses       Default_Model_DbTable_News
  * @package    News
  * @subpackage Model
+ * @since      0.2
  */
 class Default_Model_NewsMapper
 {
@@ -48,9 +49,10 @@ class Default_Model_NewsMapper
     /**
      * Specify Zend_Db_Table instance to use for data operations
      *
-     * @param  Zend_Db_Table_Abstract $dbTable
+     * @param string $dbTable
      *
-     * @return Default_Model_NewsMapper
+     * @return void
+     * @since v0.2
      */
     public function setDbTable($dbTable)
     {
@@ -61,7 +63,6 @@ class Default_Model_NewsMapper
             throw new Exception ('Invalid table data gateway provided');
         }
         $this->_dbTable = $dbTable;
-        return $this;
     }
 
     /**
@@ -69,7 +70,8 @@ class Default_Model_NewsMapper
      *
      * Lazy loads Default_Model_DbTable_News if no instance registered
      *
-     * @return Zend_Db_Table_Abstract
+     * @since v0.2
+     * @return Default_Model_DbTable_News
      */
     public function getDbTable()
     {
@@ -91,39 +93,14 @@ class Default_Model_NewsMapper
      */
     public function save(Default_Model_News $news)
     {
-        $filter = new Default_Model_BadWordFilter ();
-        $data   = array(
-            'title'    => $filter->filter($news->getTitle()),
-            'summary'  => $filter->filter($news->getSummary()),
-            'content'  => $filter->filter($news->getContent()),
-            'author'   => $news->getAuthor(),
-            'created'  => date('Y-m-d H:i:s'),
-            'modified' => date('Y-m-d H:i:s')
-        );
 
-        if (!$id = $news->getId()) {
-            $data ['views'] = 0;
-            $this->getDbTable()->insert($data);
+        if ($news->getId() == 0) {
+            $this->getDbTable()->insert((array)$news);
         } else {
-            unset ($data ['created']);
-            $this->getDbTable()->update($data, array('id = ?' => $id));
+            $this->getDbTable()->update((array)$news, array('id=?'=> $news->getId()));
         }
     }
 
-    /**
-     * Increments the number of view for a story
-     *
-     * @uses Default_Model_News
-     *
-     * @param Default_Model_News $news
-     *
-     * @return void
-     */
-    public function addView(Default_Model_News $news)
-    {
-        $data = array('views' => ( int )$news->getViews() + 1);
-        $this->getDbTable()->update($data, array('id = ?' => $news->getId()));
-    }
 
     /**
      * Find a news story by id
@@ -144,171 +121,46 @@ class Default_Model_NewsMapper
             ->order('n.id DESC');
         $row    = $db->fetchRow($select, null, Zend_Db::FETCH_OBJ);
 
-        $news->setId($id)
-            ->setTitle($row->title)
-            ->setSummary($row->summary)
-            ->setContent($row->content)
-            ->setAuthor($row->author)
-            ->setCreated($row->created)
-            ->setModified($row->modified)
-            ->setViews($row->views)
-            ->setCategory($row->name);
+        $news->setOptions((array)$row);
         return $news;
     }
 
     /**
-     * Fetch all News Stories
+     * Retrieve several news articles at the same time
      *
-     * @uses Default_Model_News
-     * @return array
-     */
-    public function fetchAll()
-    {
-        $db        = $this->getDbTable()->getDefaultAdapter();
-        $select    = $db->select()->from(array('n' => 'news'))
-            ->join(array('c' => 'categories'), 'n.cat_id = c.id', array('c.name'))
-            ->order('n.id DESC');
-        $resultSet = $db->fetchAll($select, null, Zend_Db::FETCH_OBJ);
-        $entries   = array();
-        foreach ($resultSet as $row) {
-            $entry = new Default_Model_News ();
-            $entry->setId($row->id)
-                ->setTitle($row->title)
-                ->setSummary($row->summary)
-                ->setContent($row->content)
-                ->setAuthor($row->author)
-                ->setCategory($row->name)
-                ->setCreated($row->created)
-                ->setModified($row->modified)
-                ->setViews($row->views)
-                ->setMapper($this);
-            $entries [] = $entry;
-        }
-        return $entries;
-    }
-
-    /**
-     * Fetch the most recent news stories
+     * This method allows for the retrieval of sets of news articles.  There are optional parameters to allow for
+     * customising the sorting of the result set.  The optional limit and offset parameters allow this method to be
+     * used in conjunction with Zend_Paginator.
      *
-     * @uses Default_Model_News
+     * @uses  Default_Model_News
      *
-     * @param int $limit
-     *
-     * @return array
-     */
-    public function fetchLatest($limit)
-    {
-        $db        = $this->getDbTable()->getDefaultAdapter();
-        $select    = $db->select()->from(array('n' => 'news'))
-            ->join(array('c' => 'categories'), 'n.cat_id = c.id', array('c.name'))
-            ->order('n.id DESC')
-            ->limit($limit);
-        $resultSet = $db->fetchAll($select, null, Zend_Db::FETCH_OBJ);
-        $entries   = array();
-        foreach ($resultSet as $row) {
-            $entry = new Default_Model_News ();
-            $entry->setId($row->id)
-                ->setTitle($row->title)
-                ->setSummary($row->summary)
-                ->setContent($row->content)
-                ->setAuthor($row->author)
-                ->setCategory($row->name)
-                ->setCreated($row->created)
-                ->setModified($row->modified)
-                ->setViews($row->views)
-                ->setMapper($this);
-            $entries [] = $entry;
-        }
-        return $entries;
-    }
-
-    /**
-     * Fetch the stories with the most views
-     *
-     * @uses Default_Model_News
-     *
-     * @param int $limit
-     *
-     * @return array
-     */
-    public function fetchPopular($limit)
-    {
-        $db        = $this->getDbTable()->getDefaultAdapter();
-        $select    = $db->select()->from(array('n' => 'news'))
-            ->join(array('c' => 'categories'), 'n.cat_id = c.id', array('c.name'))
-            ->order('n.id DESC')->limit($limit);
-        $resultSet = $db->fetchAll($select, null, Zend_Db::FETCH_OBJ);
-        $entries   = array();
-        foreach ($resultSet as $row) {
-            $entry = new Default_Model_News ();
-            $entry->setId($row->id)
-                ->setTitle($row->title)
-                ->setSummary($row->summary)
-                ->setContent($row->content)
-                ->setAuthor($row->author)
-                ->setCategory($row->name)
-                ->setCreated($row->created)
-                ->setModified($row->modified)
-                ->setViews($row->views)
-                ->setMapper($this);
-            $entries [] = $entry;
-        }
-        return $entries;
-    }
-
-    /**
-     * Fetch stories for a specific page number
-     *
-     * @uses Zend_Paginator
-     *
-     * @param int    $page
      * @param int    $limit
-     * @param string $style
+     * @param int    $offset
+     * @param string $sortBy
+     * @param string $order
      *
-     * @return Zend_Paginator
+     * @return array
+     * @since v0.5.2
      */
-    public function fetchPage($page, $limit, $style)
+    public function fetchMany($limit = 0, $offset = 0, $sortBy = 'id', $order = 'DESC')
     {
-        $db = $this->getDbTable()->getDefaultAdapter();
-        $db->setFetchMode(Zend_Db::FETCH_OBJ);
-        $select     = $db->select()->from(array('n' => 'news'))
-            ->join(array('c' => 'categories'), 'n.cat_id = c.id', array('c.name'))
-            ->order('n.id DESC');
-        $pagination = Zend_Paginator::factory($select);
-        $pagination->setCurrentPageNumber($page);
-        $pagination->setItemCountPerPage($limit);
-        $pagination->setDefaultScrollingStyle($style);
-        Zend_View_Helper_PaginationControl::setDefaultViewPartial('pagination.phtml');
-        return $pagination;
+        $db     = $this->getDbTable()->getDefaultAdapter();
+        $select = $db->select()
+            ->from(array('n'=> 'news'))
+            ->join(array('c'=> 'categories'), 'n.cat_id = c.id', array(c . name))
+            ->order("n.${sortBy} ${order}");
+        if ($limit > 0) {
+            $select->limit($limit, $offset);
 
-    }
+        }
+        $resultSet = $db->fetchAll($select, null, Zend_Db::FETCH_OBJ);
+        $entries   = array();
+        foreach ($resultSet as $row) {
+            $entry      = new Default_Model_News ((array)$row);
+            $entries [] = $entry;
+        }
+        return $entries;
 
-    /**
-     * Fetch stories submitted by specified author
-     *
-     * @uses Zend_Paginator
-     *
-     * @param string $author The author of the stories we are requesting
-     * @param int    $page   The page number the user is viewing
-     * @param int    $limit  The number of entries to display on the page
-     * @param string $style  The style of the Pagination control
-     *
-     * @return Zend_Paginator
-     */
-    public function fetchNewsByAuthor($author, $page, $limit, $style)
-    {
-        $db = $this->getDbTable()->getDefaultAdapter();
-        $db->setFetchMode(Zend_Db::FETCH_OBJ);
-        $select     = $db->select()->from(array('n' => 'news'))
-            ->join(array('c' => 'categories'), 'n.cat_id = c.id', array('c.name'))
-            ->where('n.author = ?', $author)
-            ->order('n.created DESC');
-        $pagination = Zend_Paginator::factory($select);
-        $pagination->setCurrentPageNumber($page);
-        $pagination->setItemCountPerPage($limit);
-        $pagination->setDefaultScrollingStyle($style);
-        Zend_View_Helper_PaginationControl::setDefaultViewPartial('pagination.phtml');
-        return $pagination;
 
     }
 
@@ -318,65 +170,44 @@ class Default_Model_NewsMapper
      * @param int $id
      *
      * @return void
+     * @since v0.2
      */
-    public function deleteStory($id)
+    public function delete($id)
     {
         $where = $this->getDbTable()->getAdapter()->quoteInto('id = ?', $id);
         $this->getDbTable()->delete($where);
     }
 
     /**
-     * Fetch all the news entries
-     *
-     * @uses Zend_Paginator
-     *
      * @param int    $page
      * @param int    $limit
-     * @param string $style
+     * @param string $type
+     * @param string $value
      *
      * @return Zend_Paginator
+     * @since v0.5.2
      */
-    public function fetchAllNews($page, $limit, $style)
+    public function fetchNewsPage($page = 1, $limit = 10, $type = '', $value = '')
     {
         $db = $this->getDbTable()->getDefaultAdapter();
         $db->setFetchMode(Zend_Db::FETCH_OBJ);
-        $select     = $db->select()->from(array('n' => 'news'))
+        $select = $db->select()->from(array('n' => 'news'))
             ->join(array('c' => 'categories'), 'n.cat_id = c.id', array('c.name'))
             ->order('n.id DESC');
+        switch ($type) {
+        case 'author':
+            $select->where('author = ?', $value);
+            break;
+        case 'category':
+            $select->where('n.cat_id = ?', $value);
+            break;
+        default:
+            break;
+
+        }
         $pagination = Zend_Paginator::factory($select);
         $pagination->setCurrentPageNumber($page);
         $pagination->setItemCountPerPage($limit);
-        $pagination->setDefaultScrollingStyle($style);
-        Zend_View_Helper_PaginationControl::setDefaultViewPartial('pagination.phtml');
         return $pagination;
     }
-
-    /**
-     * Fetch all the news stories in a category
-     *
-     * @uses Zend_Paginator
-     *
-     * @param int    $category
-     * @param int    $page
-     * @param int    $limit
-     * @param string $style
-     *
-     * @return Zend_Paginator
-     */
-    public function fetchNewsByCategory($category, $page, $limit, $style)
-    {
-        $db = $this->getDbTable()->getDefaultAdapter();
-        $db->setFetchMode(Zend_Db::FETCH_OBJ);
-        $select     = $db->select()->from(array('n'=> 'news'))
-            ->join(array('c'=> 'categories'), 'n.cat_id  = c.id', array('c.name'))
-            ->where('n.cat_id = ?', $category)
-            ->order('n.created DESC');
-        $pagination = Zend_Paginator::factory($select);
-        $pagination->setCurrentPageNumber($page)
-            ->setItemCountPerPage($limit)
-            ->setDefaultScrollingStyle($style);
-        Zend_View_Helper_PaginationControl::setDefaultViewPartial('pagination.phtml');
-        return $pagination;
-    }
-
 }
